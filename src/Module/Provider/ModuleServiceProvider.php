@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Facades\App;
 use Mage2\Framework\View\AdminMenu;
+use Mage2\Framework\Shipping\ShippingManager;
+use Mage2\Framework\Payment\PaymentManager;
 
 class ModuleServiceProvider extends ServiceProvider {
 
@@ -25,7 +27,8 @@ class ModuleServiceProvider extends ServiceProvider {
      * @return void
      */
     public function register() {
-        //
+        $this->_registerShippingFacade();
+        $this->_registerPaymentFacade();
     }
 
     public function registerExtension() {
@@ -61,6 +64,24 @@ class ModuleServiceProvider extends ServiceProvider {
         }
 
 
+    }
+
+    private function _registerShippingFacade() {
+        App::bind('Shipping', function() {
+            return new ShippingManager;
+        });
+    }
+
+    private function _registerPaymentFacade() {
+        App::bind('Payment', function() {
+            return new PaymentManager;
+        });
+    }
+
+    private function _registerExtensionFacade() {
+        App::bind('Extension', function() {
+            return new ExtensionManager;
+        });
     }
 
     public function registerAdminMenuFacade() {
