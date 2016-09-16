@@ -44,7 +44,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'adminauth' => \Mage2\Admin\Http\Middleware\AdminAuthenticate::class,
+        'adminauth' => \Mage2\Common\Middleware\AdminAuthenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
        
