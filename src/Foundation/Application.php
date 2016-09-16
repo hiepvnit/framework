@@ -30,4 +30,16 @@ class Application extends LaravelApplication
     {
         return $this->storagePath().'/app/services.php';
     }
+    
+     /**
+     * Get the application namespace.
+     *
+     * @return string
+     *
+     * @throws \RuntimeException
+     */
+    public function getNamespace()
+    {
+        return "Mage2\\Common";
+    }
 }
