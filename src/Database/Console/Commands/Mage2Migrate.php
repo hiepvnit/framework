@@ -26,6 +26,7 @@ class Mage2Migrate extends Command {
      */
     protected $description = 'Run the database migrations for Mage2 Database';
 
+    protected $migrator;
     /**
      * Create a new command instance.
      *
@@ -91,7 +92,7 @@ class Mage2Migrate extends Command {
         $mage2Modules = config('module');
         $migrationPath = [];
         foreach ($mage2Modules as $namespace => $path) {
-            $migrationPath [] = $path . DIRECTORY_SEPARATOR . "migration";
+            $migrationPath [] = $path . DIRECTORY_SEPARATOR . "database" . DIRECTORY_SEPARATOR ."migration";
         }
         return $migrationPath;
     }
