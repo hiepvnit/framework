@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Framework\Module\Provider;
+namespace Mage2\Framework\Foundation\Provider;
 
 use Illuminate\Support\ServiceProvider;
 use Composer\Autoload\ClassLoader;
