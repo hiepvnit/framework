@@ -92,7 +92,7 @@ class Mage2Migrate extends Command {
         $mage2Modules = config('module');
         $migrationPath = [];
         foreach ($mage2Modules as $namespace => $path) {
-            $migrationPath [] = $path . DIRECTORY_SEPARATOR . "database" . DIRECTORY_SEPARATOR ."migration";
+            $migrationPath [] = $path . DIRECTORY_SEPARATOR . "Database" . DIRECTORY_SEPARATOR ."Migration";
         }
         return $migrationPath;
     }
