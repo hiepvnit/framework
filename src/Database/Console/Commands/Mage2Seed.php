@@ -17,7 +17,7 @@ class Mage2Seed extends Command {
      *
      * @var string
      */
-    protected $signature = 'mage2:seed {--class=} {--database=} {--force}';
+    protected $signature = 'mage2:seed {--database=}';
 
     /**
      * The console command description.
@@ -33,6 +33,8 @@ class Mage2Seed extends Command {
      */
     protected $resolver;
 
+
+
     /**
      * Create a new command instance.
      *
@@ -41,6 +43,7 @@ class Mage2Seed extends Command {
     public function __construct(Resolver $resolver) {
         parent::__construct();
         $this->resolver = $resolver;
+
     }
 
     /**
@@ -53,11 +56,24 @@ class Mage2Seed extends Command {
             return;
         }
 
+
+
         $this->resolver->setDefaultConnection($this->getDatabase());
 
-        Model::unguarded(function () {
-            $this->getSeeder()->run();
-        });
+
+        $modules = config('module');
+
+        foreach($modules as $namespace =>  $path ) {
+            $this->moduleNamespace = $namespace;
+            Model::unguarded(function () {
+                $seederClass = $this->getSeeder($this->moduleNamespace);
+                if(NULL !== $seederClass) {
+                    $seederClass->run();
+                }
+
+            });
+        }
+
     }
 
     /**
@@ -72,15 +88,32 @@ class Mage2Seed extends Command {
     }
 
     /**
+     * Get a seeder instance from the container.
+     *
+     * @return \Illuminate\Database\Seeder
+     */
+    protected function getSeeder($nameSpace)
+    {
+
+
+        $className = $nameSpace . "Database\\Seeds\\DatabaseSeeder";
+
+        if(!class_exists($className)) {
+            return null;
+        }
+        $class = $this->laravel->make($className);
+
+        return $class->setContainer($this->laravel)->setCommand($this);
+    }
+
+    /**
      * Get the console command options.
      *
      * @return array
      */
     protected function getOptions() {
         return [
-            ['class', null, InputOption::VALUE_OPTIONAL, 'The class name of the root seeder', 'DatabaseSeeder'],
             ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to seed'],
-            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
         ];
     }
 

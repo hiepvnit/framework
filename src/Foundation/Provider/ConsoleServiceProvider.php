@@ -5,7 +5,6 @@ namespace Mage2\Framework\Foundation\Provider;
 use Illuminate\Support\ServiceProvider;
 use Mage2\Framework\Database\Console\Commands\Mage2Migrate;
 use Mage2\Framework\Database\Console\Commands\Mage2Seed;
-use Illuminate\Database\Migrations\Migrator;
 
 class ConsoleServiceProvider extends ServiceProvider {
 
