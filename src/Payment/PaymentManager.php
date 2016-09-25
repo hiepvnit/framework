@@ -1,19 +1,28 @@
 <?php
 namespace Mage2\Framework\Payment;
 
-use Mage2\Framework\Payment\Pickup\Pickup;
 use Illuminate\Support\Collection;
 class PaymentManager {
 
     public $paymentOption;
 
-    public function all() {
+    public function __construct() {
         $this->paymentOption = Collection::make([]);
-        $class = new Pickup();
-        $this->paymentOption->push($class);
-        
+    }
+    public function all() {
+
         return $this->paymentOption;
     }
 
-    
+    public function get($identifier) {
+
+        return $this->paymentOption->get($identifier);
+    }
+
+    public function put($identifier, $class) {
+        $this->paymentOption->put($identifier,$class);
+
+
+        return $this;
+    }
 }
