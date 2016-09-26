@@ -21,8 +21,6 @@ class PaymentManager {
 
     public function put($identifier, $class) {
         $this->paymentOption->put($identifier,$class);
-
-
         return $this;
     }
 }
