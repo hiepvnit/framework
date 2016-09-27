@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\App;
 use Mage2\Framework\View\AdminMenu;
 use Mage2\Framework\Shipping\ShippingManager;
 use Mage2\Framework\Payment\PaymentManager;
+use Mage2\Framework\View\AdminConfiguration;
 
 class ModuleServiceProvider extends ServiceProvider {
 
@@ -18,6 +19,7 @@ class ModuleServiceProvider extends ServiceProvider {
      */
     public function boot() {
         $this->registerAdminMenuFacade();
+        $this->registerAdminConfigurationFacade();
         $this->registerExtension();
         $this->app['request']->server->set('HTTPS','off');
     }
@@ -75,6 +77,12 @@ class ModuleServiceProvider extends ServiceProvider {
     public function registerAdminMenuFacade() {
         App::bind('AdminMenu', function() {
             return new AdminMenu;
+        });
+    }
+
+    public function registerAdminConfigurationFacade() {
+        App::bind('AdminConfiguration', function() {
+            return new AdminConfiguration();
         });
     }
 

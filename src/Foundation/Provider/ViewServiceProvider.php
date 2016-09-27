@@ -21,6 +21,7 @@ class ViewServiceProvider extends ServiceProvider {
             $adminMenus = (array)  AdminMenu::getMenuItems();
             $view->with('adminMenus', $adminMenus);
         });
+
     }
 
     /**
