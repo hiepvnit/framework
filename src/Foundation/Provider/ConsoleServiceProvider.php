@@ -3,6 +3,7 @@
 namespace Mage2\Framework\Foundation\Provider;
 
 use Illuminate\Support\ServiceProvider;
+use Mage2\Framework\Database\Console\Commands\Mage2MakeMigrate;
 use Mage2\Framework\Database\Console\Commands\Mage2Migrate;
 use Mage2\Framework\Database\Console\Commands\Mage2Seed;
 
@@ -38,6 +39,15 @@ class ConsoleServiceProvider extends ServiceProvider {
             return new Mage2Seed($app['db']);
         });
         $this->commands('command.mage2.seed');
+
+        $this->app->singleton('command.make.mage2migration', function ($app) {
+
+            $creator = $app['migration.creator'];
+            $composer = $app['composer'];
+
+            return new Mage2MakeMigrate($creator, $composer);
+        });
+        $this->commands('command.make.mage2migration');
     }
 
 }
