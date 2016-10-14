@@ -7,7 +7,8 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Session;
-
+use Mage2\Common\Models\Configuration;
+use Illuminate\Support\Facades\View;
 class Controller extends BaseController {
 
     use AuthorizesRequests,
@@ -22,8 +23,8 @@ class Controller extends BaseController {
 
     public function __construct() {
 
-        //$path = realpath(base_path('themes/mage2/default'));
-        //View::addLocation($path);
+        $path = realpath(Configuration::getConfiguration('active_theme_path'));
+        View::addLocation($path);
         $this->middleware(function ($request, $next) {
             $this->websiteId = Session::get('website_id');
             $this->defaultWebsiteId = Session::get('default_website_id');
