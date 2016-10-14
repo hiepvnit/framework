@@ -9,6 +9,7 @@ use Mage2\Framework\View\AdminMenu;
 use Mage2\Framework\Shipping\ShippingManager;
 use Mage2\Framework\Payment\PaymentManager;
 use Mage2\Framework\View\AdminConfiguration;
+use Mage2\Framework\Theme\ThemeManager;
 
 class ModuleServiceProvider extends ServiceProvider {
 
@@ -32,6 +33,7 @@ class ModuleServiceProvider extends ServiceProvider {
     public function register() {
         $this->_registerShippingFacade();
         $this->_registerPaymentFacade();
+        $this->_registerThemeFacade();
     }
 
     public function registerExtension() {
@@ -39,18 +41,12 @@ class ModuleServiceProvider extends ServiceProvider {
         $mage2Module = config('module');
         foreach ($mage2Module as $namespace => $path ) {
 
-            //var_dump($namespace);
-            //var_dump($path);
-
             $loader = new ClassLoader();
             $loader->addPsr4($namespace, $path);
             $loader->register();
-
             //Register ServiceProvider for Modules
             $extensionProvider = str_replace("\\", "", $namespace . "ServiceProvider");
             App::register($namespace . $extensionProvider);
-
-
         }
 
 
@@ -65,6 +61,12 @@ class ModuleServiceProvider extends ServiceProvider {
     private function _registerPaymentFacade() {
         App::bind('Payment', function() {
             return new PaymentManager;
+        });
+    }
+
+    private function _registerThemeFacade() {
+        App::bind('Theme', function() {
+            return new ThemeManager;
         });
     }
 
