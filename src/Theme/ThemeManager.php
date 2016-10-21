@@ -24,6 +24,22 @@ class ThemeManager
         return $this->themeList;
     }
 
+    public function get($name)
+    {
+        if($this->themeLoaded === false) {
+            $this->loadThemes();
+        }
+
+        $theme = $this->themeList->pull($name,null);
+
+        if(null === $theme) {
+            throw new \Exception('Sorry Could not find theme');
+        }
+
+
+        return $theme;
+    }
+
     protected function loadThemes() {
 
         $themePath = base_path('themes');
@@ -42,7 +58,7 @@ class ThemeManager
 
                 $filePath = $iterator->getPathname() ;
                 $themeInfo = include_once $filePath;
-                $this->themeList->push($themeInfo);
+                $this->themeList->put($themeInfo['name'], $themeInfo);
             }
             $iterator->next();
         }

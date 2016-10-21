@@ -26,7 +26,7 @@ class Controller extends BaseController {
     public function __construct() {
 
         if(!Schema::hasTable('migrations')){
-            return redirect()->route('mage2.install');
+            //return redirect()->route('mage2.install');
         }
         if(Schema::hasTable('configurations')){
             $path = realpath(Configuration::getConfiguration('active_theme_path'));
