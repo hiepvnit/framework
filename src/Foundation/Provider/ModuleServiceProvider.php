@@ -23,7 +23,7 @@ class ModuleServiceProvider extends ServiceProvider {
         $this->registerAdminMenuFacade();
         $this->registerAdminConfigurationFacade();
         $this->registerModule();
-
+        $this->registerTheme();
         $this->app['request']->server->set('HTTPS','off');
     }
 
@@ -51,6 +51,24 @@ class ModuleServiceProvider extends ServiceProvider {
             //Register ServiceProvider for Modules
             $extensionProvider = str_replace("\\", "", $namespace . "ServiceProvider");
             App::register($namespace . $extensionProvider);
+
+        }
+
+
+    }
+
+    public function registerTheme() {
+
+        $mage2Module = config('theme');
+        foreach ($mage2Module as $namespace => $path ) {
+
+            $loader = new ClassLoader();
+            $loader->addPsr4($namespace, $path);
+            $loader->register();
+            //Register ServiceProvider for Modules
+            //$extensionProvider = str_replace("\\", "", $namespace. "\\" . "ThemeInfo");
+            //dd($namespace . "ThemeInfo");die;
+            App::register($namespace . "ThemeInfo");
 
         }
 
