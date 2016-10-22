@@ -30,6 +30,7 @@ class Controller extends BaseController {
         }
         if(Schema::hasTable('configurations')){
             $path = realpath(Configuration::getConfiguration('active_theme_path'));
+            //dd($path );
             View::addLocation($path);
         }
         $this->middleware(function ($request, $next) {

@@ -22,8 +22,9 @@ class ModuleServiceProvider extends ServiceProvider {
     public function boot() {
         $this->registerAdminMenuFacade();
         $this->registerAdminConfigurationFacade();
-        $this->registerModule();
         $this->registerTheme();
+        $this->registerModule();
+
         $this->app['request']->server->set('HTTPS','off');
     }
 
