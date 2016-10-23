@@ -7,7 +7,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Session;
-use Mage2\Common\Models\Configuration;
+use Mage2\Configuration\Models\Configuration;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
 
