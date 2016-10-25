@@ -1,4 +1,5 @@
 <?php
+
 namespace Mage2\Framework\View;
 
 use Illuminate\Filesystem\Filesystem;
@@ -17,10 +18,10 @@ class FileViewFinder extends LaravelFileViewFinder
         //var_dump($name);
         //dd($paths);
 
-        foreach ((array)$paths as $path) {
+        foreach ((array) $paths as $path) {
             //var_dump($path);
             foreach ($this->getPossibleViewFiles($name) as $file) {
-                if ($this->files->exists($viewPath = $path . '/' . $file)) {
+                if ($this->files->exists($viewPath = $path.'/'.$file)) {
                     return $viewPath;
                 }
             }
@@ -28,6 +29,5 @@ class FileViewFinder extends LaravelFileViewFinder
 
 
         throw new InvalidArgumentException("View [$name] not found.");
-
     }
 }

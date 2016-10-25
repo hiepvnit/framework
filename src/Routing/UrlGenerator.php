@@ -2,30 +2,30 @@
 
 namespace Mage2\Framework\Routing;
 
-use Illuminate\Routing\RouteCollection;
 use Illuminate\Http\Request;
+use Illuminate\Routing\RouteCollection;
 use Illuminate\Routing\UrlGenerator as LaravelUrlGenerator;
 
 class UrlGenerator extends LaravelUrlGenerator
 {
     public function __construct(RouteCollection $routes, Request $request)
     {
-       parent::__construct($routes, $request);
+        parent::__construct($routes, $request);
     }
-
 
     /**
      * Generate the URL to an application asset.
      *
-     * @param  string  $path
-     * @param  bool|null  $secure
+     * @param string    $path
+     * @param bool|null $secure
+     *
      * @return string
      */
     public function asset($path, $secure = null)
     {
-        return parent::asset($path,$secure);
+        return parent::asset($path, $secure);
 
-        /**
+        /*
         if ($this->isValidUrl($path)) {
             return $path;
         }
@@ -39,9 +39,5 @@ class UrlGenerator extends LaravelUrlGenerator
         dd($this->removeIndex($root).'/'.trim($path, '/'));
         return $this->removeIndex($root).'/'.trim($path, '/');
          */
-
     }
-
-
-
 }

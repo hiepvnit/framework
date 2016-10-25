@@ -3,13 +3,13 @@
 namespace Mage2\Framework\Database\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Console\ConfirmableTrait;
-use Symfony\Component\Console\Input\InputOption;
 use Illuminate\Database\ConnectionResolverInterface as Resolver;
+use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\Console\Input\InputOption;
 
-class Mage2Seed extends Command {
-
+class Mage2Seed extends Command
+{
     use ConfirmableTrait;
 
     /**
@@ -33,17 +33,15 @@ class Mage2Seed extends Command {
      */
     protected $resolver;
 
-
-
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct(Resolver $resolver) {
+    public function __construct(Resolver $resolver)
+    {
         parent::__construct();
         $this->resolver = $resolver;
-
     }
 
     /**
@@ -51,7 +49,8 @@ class Mage2Seed extends Command {
      *
      * @return mixed
      */
-    public function handle() {
+    public function handle()
+    {
         if (!$this->confirmToProceed()) {
             return;
         }
@@ -63,17 +62,15 @@ class Mage2Seed extends Command {
 
         $modules = config('module');
 
-        foreach($modules as $namespace =>  $path ) {
+        foreach ($modules as $namespace =>  $path) {
             $this->moduleNamespace = $namespace;
             Model::unguarded(function () {
                 $seederClass = $this->getSeeder($this->moduleNamespace);
-                if(NULL !== $seederClass) {
+                if (null !== $seederClass) {
                     $seederClass->run();
                 }
-
             });
         }
-
     }
 
     /**
@@ -81,10 +78,11 @@ class Mage2Seed extends Command {
      *
      * @return string
      */
-    protected function getDatabase() {
+    protected function getDatabase()
+    {
         $database = $this->input->getOption('database');
 
-        return $database ? : $this->laravel['config']['database.default'];
+        return $database ?: $this->laravel['config']['database.default'];
     }
 
     /**
@@ -94,12 +92,10 @@ class Mage2Seed extends Command {
      */
     protected function getSeeder($nameSpace)
     {
+        $className = $nameSpace.'Database\\Seeds\\DatabaseSeeder';
 
-
-        $className = $nameSpace . "Database\\Seeds\\DatabaseSeeder";
-
-        if(!class_exists($className)) {
-            return null;
+        if (!class_exists($className)) {
+            return;
         }
         $class = $this->laravel->make($className);
 
@@ -111,10 +107,10 @@ class Mage2Seed extends Command {
      *
      * @return array
      */
-    protected function getOptions() {
+    protected function getOptions()
+    {
         return [
             ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to seed'],
         ];
     }
-
 }

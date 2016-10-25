@@ -3,15 +3,11 @@
 namespace Mage2\Framework\Database\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Composer;
 use Illuminate\Database\Migrations\MigrationCreator;
+use Illuminate\Support\Composer;
 
-
-class Mage2MakeMigrate extends Command {
-
-
-
+class Mage2MakeMigrate extends Command
+{
     /**
      * The name and signature of the console command.
      *
@@ -44,8 +40,8 @@ class Mage2MakeMigrate extends Command {
      */
     protected $composer;
 
-
-    public function __construct(MigrationCreator $creator, Composer $composer) {
+    public function __construct(MigrationCreator $creator, Composer $composer)
+    {
         parent::__construct();
 
         $this->creator = $creator;
@@ -57,7 +53,8 @@ class Mage2MakeMigrate extends Command {
      *
      * @return mixed
      */
-    public function handle() {
+    public function handle()
+    {
         // It's possible for the developer to specify the tables to modify in this
         // schema operation. The developer may also specify if this table needs
         // to be freshly created so we can create the appropriate migrations.
@@ -68,7 +65,7 @@ class Mage2MakeMigrate extends Command {
 
         $create = $this->input->getOption('create') ?: false;
 
-        if (! $table && is_string($create)) {
+        if (!$table && is_string($create)) {
             $table = $create;
 
             $create = true;
@@ -85,9 +82,10 @@ class Mage2MakeMigrate extends Command {
     /**
      * Write the migration file to disk.
      *
-     * @param  string  $name
-     * @param  string  $table
-     * @param  bool    $create
+     * @param string $name
+     * @param string $table
+     * @param bool   $create
+     *
      * @return string
      */
     protected function writeMigration($moduleName, $name, $table, $create)
@@ -106,11 +104,9 @@ class Mage2MakeMigrate extends Command {
      */
     protected function getMigrationPath($moduleName)
     {
-        $path = base_path('/modules/base/'. $moduleName. "/Database/Migration");
+        $path = base_path('/modules/base/'.$moduleName.'/Database/Migration');
 
 
         return $path;
-
-
     }
 }

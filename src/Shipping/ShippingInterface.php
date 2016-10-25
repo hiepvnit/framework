@@ -2,8 +2,8 @@
 
 namespace Mage2\Framework\Shipping;
 
-interface ShippingInterface {
-
+interface ShippingInterface
+{
     public function getIdentifier();
 
     public function getTitle();

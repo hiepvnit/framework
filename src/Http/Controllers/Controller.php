@@ -2,17 +2,17 @@
 
 namespace Mage2\Framework\Http\Controllers;
 
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Session;
-use Mage2\Configuration\Models\Configuration;
-use Illuminate\Support\Facades\View;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
+use Mage2\Configuration\Models\Configuration;
 
-class Controller extends BaseController {
-
+class Controller extends BaseController
+{
     use AuthorizesRequests,
         DispatchesJobs,
         ValidatesRequests;
@@ -23,12 +23,12 @@ class Controller extends BaseController {
 
     //public $theme;
 
-    public function __construct() {
-
-        if(!Schema::hasTable('migrations')){
+    public function __construct()
+    {
+        if (!Schema::hasTable('migrations')) {
             //return redirect()->route('mage2.install');
         }
-        if(Schema::hasTable('configurations')){
+        if (Schema::hasTable('configurations')) {
             $path = realpath(Configuration::getConfiguration('active_theme_path'));
             //dd($path );
             View::addLocation($path);
@@ -37,9 +37,8 @@ class Controller extends BaseController {
             $this->websiteId = Session::get('website_id');
             $this->defaultWebsiteId = Session::get('default_website_id');
             $this->isDefaultWebsite = Session::get('is_default_website');
-            
-             return $next($request);
+
+            return $next($request);
         });
     }
-
 }
