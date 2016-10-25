@@ -44,9 +44,9 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'adminauth' => \Mage2\Auth\Middleware\AdminAuthenticate::class,
+        'adminauth'  => \Mage2\Auth\Middleware\AdminAuthenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'can'        => \Illuminate\Foundation\Http\Middleware\Authorize::class,
+        'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];
 }

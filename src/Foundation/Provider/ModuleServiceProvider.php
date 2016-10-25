@@ -2,30 +2,31 @@
 
 namespace Mage2\Framework\Foundation\Provider;
 
-use Illuminate\Support\ServiceProvider;
 use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Facades\App;
-use Mage2\Framework\View\AdminMenu;
-use Mage2\Framework\Shipping\ShippingManager;
+use Illuminate\Support\ServiceProvider;
 use Mage2\Framework\Payment\PaymentManager;
-use Mage2\Framework\View\AdminConfiguration;
-use Mage2\Framework\Theme\ThemeManager;
 use Mage2\Framework\Routing\UrlGenerator;
+use Mage2\Framework\Shipping\ShippingManager;
+use Mage2\Framework\Theme\ThemeManager;
+use Mage2\Framework\View\AdminConfiguration;
+use Mage2\Framework\View\AdminMenu;
 
-class ModuleServiceProvider extends ServiceProvider {
-
+class ModuleServiceProvider extends ServiceProvider
+{
     /**
      * Bootstrap any application services.
      *
      * @return void
      */
-    public function boot() {
+    public function boot()
+    {
         $this->registerAdminMenuFacade();
         $this->registerAdminConfigurationFacade();
         $this->registerTheme();
         $this->registerModule();
 
-        $this->app['request']->server->set('HTTPS','off');
+        $this->app['request']->server->set('HTTPS', 'off');
     }
 
     /**
@@ -33,7 +34,8 @@ class ModuleServiceProvider extends ServiceProvider {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->_registerShippingFacade();
         $this->registerUrlGenerator();
 
@@ -41,39 +43,31 @@ class ModuleServiceProvider extends ServiceProvider {
         $this->_registerThemeFacade();
     }
 
-    public function registerModule() {
-
+    public function registerModule()
+    {
         $mage2Module = config('module');
-        foreach ($mage2Module as $namespace => $path ) {
-
+        foreach ($mage2Module as $namespace => $path) {
             $loader = new ClassLoader();
             $loader->addPsr4($namespace, $path);
             $loader->register();
             //Register ServiceProvider for Modules
-            $extensionProvider = str_replace("\\", "", $namespace . "ServiceProvider");
-            App::register($namespace . $extensionProvider);
-
+            $extensionProvider = str_replace('\\', '', $namespace.'ServiceProvider');
+            App::register($namespace.$extensionProvider);
         }
-
-
     }
 
-    public function registerTheme() {
-
+    public function registerTheme()
+    {
         $mage2Module = config('theme');
-        foreach ($mage2Module as $namespace => $path ) {
-
+        foreach ($mage2Module as $namespace => $path) {
             $loader = new ClassLoader();
             $loader->addPsr4($namespace, $path);
             $loader->register();
             //Register ServiceProvider for Modules
             //$extensionProvider = str_replace("\\", "", $namespace. "\\" . "ThemeInfo");
             //dd($namespace . "ThemeInfo");die;
-            App::register($namespace . "ThemeInfo");
-
+            App::register($namespace.'ThemeInfo');
         }
-
-
     }
 
     /**
@@ -112,9 +106,10 @@ class ModuleServiceProvider extends ServiceProvider {
         });
     }
 
-    private function _registerShippingFacade() {
-        App::bind('Shipping', function() {
-            return new ShippingManager;
+    private function _registerShippingFacade()
+    {
+        App::bind('Shipping', function () {
+            return new ShippingManager();
         });
     }
 
@@ -130,34 +125,38 @@ class ModuleServiceProvider extends ServiceProvider {
         };
     }
 
-    private function _registerPaymentFacade() {
-        App::bind('Payment', function() {
-            return new PaymentManager;
+    private function _registerPaymentFacade()
+    {
+        App::bind('Payment', function () {
+            return new PaymentManager();
         });
     }
 
-    private function _registerThemeFacade() {
-        App::bind('Theme', function() {
-            return new ThemeManager;
+    private function _registerThemeFacade()
+    {
+        App::bind('Theme', function () {
+            return new ThemeManager();
         });
     }
 
-    private function _registerExtensionFacade() {
-        App::bind('Extension', function() {
-            return new ExtensionManager;
+    private function _registerExtensionFacade()
+    {
+        App::bind('Extension', function () {
+            return new ExtensionManager();
         });
     }
 
-    public function registerAdminMenuFacade() {
-        App::bind('AdminMenu', function() {
-            return new AdminMenu;
+    public function registerAdminMenuFacade()
+    {
+        App::bind('AdminMenu', function () {
+            return new AdminMenu();
         });
     }
 
-    public function registerAdminConfigurationFacade() {
-        App::bind('AdminConfiguration', function() {
+    public function registerAdminConfigurationFacade()
+    {
+        App::bind('AdminConfiguration', function () {
             return new AdminConfiguration();
         });
     }
-
 }

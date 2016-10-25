@@ -1,17 +1,17 @@
 <?php
+
 namespace Mage2\Framework\Foundation;
 
 use Illuminate\Foundation\Application as LaravelApplication;
 
 class Application extends LaravelApplication
 {
-  
     public function __construct($basePath = null)
     {
         parent::__construct($basePath);
     }
-    
-      /**
+
+    /**
      * Get the path to the application "app" directory.
      *
      * @return string
@@ -21,6 +21,7 @@ class Application extends LaravelApplication
         //return $this->basePath.DIRECTORY_SEPARATOR.'app';
         return $this->basePath.DIRECTORY_SEPARATOR.'modules/base';
     }
+
     /**
      * Get the path to the cached services.php file.
      *
@@ -30,16 +31,16 @@ class Application extends LaravelApplication
     {
         return $this->storagePath().'/app/services.php';
     }
-    
-     /**
+
+    /**
      * Get the application namespace.
      *
-     * @return string
-     *
      * @throws \RuntimeException
+     *
+     * @return string
      */
     public function getNamespace()
     {
-        return "Mage2\\Common";
+        return 'Mage2\\Common';
     }
 }

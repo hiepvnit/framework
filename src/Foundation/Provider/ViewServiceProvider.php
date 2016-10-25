@@ -2,30 +2,27 @@
 
 namespace Mage2\Framework\Foundation\Provider;
 
-use Illuminate\Support\ServiceProvider;
-use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Facades\App;
-use Mage2\Framework\View\Facades\AdminMenu;
 use Illuminate\Support\Facades\View;
 use Illuminate\View\ViewServiceProvider as LaravelViewServiceProvider;
+use Mage2\Framework\View\Facades\AdminMenu;
 use Mage2\Framework\View\FileViewFinder;
 
-class ViewServiceProvider extends LaravelViewServiceProvider {
-
+class ViewServiceProvider extends LaravelViewServiceProvider
+{
     /**
      * Bootstrap any application services.
      *
      * @return void
      */
-    public function boot() {
+    public function boot()
+    {
 
         //parent::boot();
         View::composer('layouts.admin-nav', function ($view) {
-
-            $adminMenus = (array)  AdminMenu::getMenuItems();
+            $adminMenus = (array) AdminMenu::getMenuItems();
             $view->with('adminMenus', $adminMenus);
         });
-
     }
 
     /**
@@ -33,7 +30,8 @@ class ViewServiceProvider extends LaravelViewServiceProvider {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->registerViewFinder();
         //
     }
@@ -51,5 +49,4 @@ class ViewServiceProvider extends LaravelViewServiceProvider {
             return new FileViewFinder($app['files'], $paths);
         });
     }
-
 }

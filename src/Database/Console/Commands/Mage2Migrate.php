@@ -3,13 +3,13 @@
 namespace Mage2\Framework\Database\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Console\ConfirmableTrait;
 use Illuminate\Database\Migrations\Migrator;
+use Illuminate\Support\Facades\Config;
 use Symfony\Component\Console\Input\InputOption;
 
-class Mage2Migrate extends Command {
-
+class Mage2Migrate extends Command
+{
     use ConfirmableTrait;
 
     /**
@@ -27,12 +27,14 @@ class Mage2Migrate extends Command {
     protected $description = 'Run the database migrations for Mage2 Database';
 
     protected $migrator;
+
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct(Migrator $migrator) {
+    public function __construct(Migrator $migrator)
+    {
         $this->migrator = $migrator;
         parent::__construct();
     }
@@ -42,8 +44,9 @@ class Mage2Migrate extends Command {
      *
      * @return mixed
      */
-    public function handle() {
-        $this->info("Building Command Artisan");
+    public function handle()
+    {
+        $this->info('Building Command Artisan');
 
         if (!$this->confirmToProceed()) {
             return;
@@ -55,7 +58,7 @@ class Mage2Migrate extends Command {
         // so that migrations may be run for any path within the applications.
         $this->migrator->run($this->getMigrationPaths(), [
             'pretend' => $this->option('pretend'),
-            'step' => $this->option('step'),
+            'step'    => $this->option('step'),
         ]);
 
         // Once the migrator has run we will grab the note output and send it out to
@@ -78,7 +81,8 @@ class Mage2Migrate extends Command {
      *
      * @return void
      */
-    protected function prepareDatabase() {
+    protected function prepareDatabase()
+    {
         $this->migrator->setConnection($this->option('database'));
 
         if (!$this->migrator->repositoryExists()) {
@@ -88,12 +92,14 @@ class Mage2Migrate extends Command {
         }
     }
 
-    public function getMigrationPaths() {
+    public function getMigrationPaths()
+    {
         $mage2Modules = config('module');
         $migrationPath = [];
         foreach ($mage2Modules as $namespace => $path) {
-            $migrationPath [] = $path . DIRECTORY_SEPARATOR . "Database" . DIRECTORY_SEPARATOR ."Migration";
+            $migrationPath [] = $path.DIRECTORY_SEPARATOR.'Database'.DIRECTORY_SEPARATOR.'Migration';
         }
+
         return $migrationPath;
     }
 
@@ -102,7 +108,8 @@ class Mage2Migrate extends Command {
      *
      * @return array
      */
-    protected function getOptions() {
+    protected function getOptions()
+    {
         return [
             ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.'],
             ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
@@ -112,5 +119,4 @@ class Mage2Migrate extends Command {
             ['step', null, InputOption::VALUE_NONE, 'Force the migrations to be run so they can be rolled back individually.'],
         ];
     }
-
 }

@@ -7,15 +7,15 @@ use Mage2\Framework\Database\Console\Commands\Mage2MakeMigrate;
 use Mage2\Framework\Database\Console\Commands\Mage2Migrate;
 use Mage2\Framework\Database\Console\Commands\Mage2Seed;
 
-class ConsoleServiceProvider extends ServiceProvider {
-
+class ConsoleServiceProvider extends ServiceProvider
+{
     /**
      * Bootstrap any application services.
      *
      * @return void
      */
-    public function boot() {
-        
+    public function boot()
+    {
     }
 
     /**
@@ -23,11 +23,13 @@ class ConsoleServiceProvider extends ServiceProvider {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->registerCommand();
     }
 
-    public function registerCommand() {
+    public function registerCommand()
+    {
         //$this->{'register' . "" . 'Command'}();
 
         $this->commands('command.mage2.migrate');
@@ -41,7 +43,6 @@ class ConsoleServiceProvider extends ServiceProvider {
         $this->commands('command.mage2.seed');
 
         $this->app->singleton('command.make.mage2migration', function ($app) {
-
             $creator = $app['migration.creator'];
             $composer = $app['composer'];
 
@@ -49,5 +50,4 @@ class ConsoleServiceProvider extends ServiceProvider {
         });
         $this->commands('command.make.mage2migration');
     }
-
 }

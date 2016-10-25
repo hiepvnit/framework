@@ -2,10 +2,9 @@
 
 namespace Mage2\Framework\Payment;
 
-interface PaymentInterface {
-
+interface PaymentInterface
+{
     public function getIdentifier();
 
     public function getTitle();
-
 }
