@@ -17,9 +17,9 @@ class BaseModel extends Model
         }
 
         try {
-            $model = call_user_func_array([static::query(), 'findorfail'], [$id, $columns]);
-            Cache::put($cacheKey, $model, $minute = 100);
-            return $model;
+            $row = call_user_func_array([static::query(), 'findorfail'], [$id, $columns]);
+            Cache::put($cacheKey, $row, $minute = 100);
+            return $row;
         } catch (ModelNotFoundException $e) {
             throw with(new TenantModelNotFoundException())->setModel(get_called_class());
         }
@@ -58,7 +58,11 @@ class BaseModel extends Model
         return $rows;
     }
 
-    public static function paginate(int $perPage = null, array $columns = array('*'), string $pageName = 'page', $page = null)
+    
+    public static function paginate($perPage = null, 
+                                    array $columns = array('*'), 
+                                    $pageName = 'page', 
+                                    $page = null)
     {
         $model = new static();
 
