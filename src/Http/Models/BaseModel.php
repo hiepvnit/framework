@@ -51,7 +51,8 @@ class BaseModel extends Model
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
-        $rows = parent::all($columns);
+        $rows = call_user_func_array([static::query(), 'all'], [$columns]);
+        //$rows = parent::all($columns);
 
         Cache::put($cacheKey, $rows, $minute = 100);
         return $rows;
@@ -65,7 +66,7 @@ class BaseModel extends Model
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
-        $rows = parent::paginate($perPage , $columns, $pageName , $page);
+        $rows = call_user_func_array([static::query(), 'paginate'], [$perPage , $columns, $pageName , $page]);
 
         Cache::put($cacheKey, $rows, $minute = 100);
         return $rows;
