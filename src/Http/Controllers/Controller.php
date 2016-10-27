@@ -26,11 +26,11 @@ class Controller extends BaseController
     public function __construct()
     {
         
-        //if (Schema::hasTable('configurations')) {
+        if (Schema::hasTable('configurations')) {
             $path = realpath(Configuration::getConfiguration('active_theme_path'));
             //dd($path );
             View::addLocation($path);
-        //}
+        }
         $this->middleware(function ($request, $next) {
             $this->websiteId = Session::get('website_id');
             $this->defaultWebsiteId = Session::get('default_website_id');
