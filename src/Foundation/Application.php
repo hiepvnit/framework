@@ -1,27 +1,11 @@
 <?php
-
 namespace Mage2\Framework\Foundation;
 
 use Illuminate\Foundation\Application as LaravelApplication;
 
-class Application extends LaravelApplication
-{
+class Application  extends LaravelApplication{
 
     protected $namespace = "Mage2\System\\";
-
-    /**
-     * Get the application namespace.
-     *
-     * @throws \RuntimeException
-     *
-     * @return string
-     */
-    public function getNamespace()
-    {
-        return $this->namespace;
-    }
-
-
     /**
      * Get the path to the bootstrap directory.
      *
@@ -41,8 +25,8 @@ class Application extends LaravelApplication
     {
         return $this->basePath.DIRECTORY_SEPARATOR.'modules' . DIRECTORY_SEPARATOR . "base";
     }
-
-    /**
+    
+       /**
      * Bind all of the application paths in the container.
      *
      * @return void
