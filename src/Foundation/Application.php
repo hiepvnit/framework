@@ -6,31 +6,8 @@ use Illuminate\Foundation\Application as LaravelApplication;
 
 class Application extends LaravelApplication
 {
-    public function __construct($basePath = null)
-    {
-        parent::__construct($basePath);
-    }
 
-    /**
-     * Get the path to the application "app" directory.
-     *
-     * @return string
-     */
-    public function path()
-    {
-        //return $this->basePath.DIRECTORY_SEPARATOR.'app';
-        return $this->basePath.DIRECTORY_SEPARATOR.'modules/base';
-    }
-
-    /**
-     * Get the path to the cached services.php file.
-     *
-     * @return string
-     */
-    public function getCachedServicesPath()
-    {
-        return $this->storagePath().'/app/services.php';
-    }
+    protected $namespace = "Mage2\System\\";
 
     /**
      * Get the application namespace.
@@ -41,6 +18,46 @@ class Application extends LaravelApplication
      */
     public function getNamespace()
     {
-        return 'Mage2\\Common';
+        return $this->namespace;
+    }
+
+
+    /**
+     * Get the path to the bootstrap directory.
+     *
+     * @return string
+     */
+    public function bootstrapPath()
+    {
+        return $this->basePath.DIRECTORY_SEPARATOR.'storage' . DIRECTORY_SEPARATOR . "framework" . DIRECTORY_SEPARATOR. "bootstrap";
+    }
+
+    /**
+     * Get the path to the bootstrap directory.
+     *
+     * @return string
+     */
+    public function baseModulePath()
+    {
+        return $this->basePath.DIRECTORY_SEPARATOR.'modules' . DIRECTORY_SEPARATOR . "base";
+    }
+
+    /**
+     * Bind all of the application paths in the container.
+     *
+     * @return void
+     */
+    protected function bindPathsInContainer()
+    {
+        $this->instance('path', $this->path());
+        $this->instance('path.module', $this->baseModulePath());
+        $this->instance('path.base', $this->basePath());
+        $this->instance('path.lang', $this->langPath());
+        $this->instance('path.config', $this->configPath());
+        $this->instance('path.public', $this->publicPath());
+        $this->instance('path.storage', $this->storagePath());
+        $this->instance('path.database', $this->databasePath());
+        $this->instance('path.resources', $this->resourcePath());
+        $this->instance('path.bootstrap', $this->bootstrapPath());
     }
 }
