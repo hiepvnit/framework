@@ -176,9 +176,11 @@ class FormGenerator {
     public function select($fieldName, $label = "", $options = [],$attributes = []) {
 
         $stub = $this->files->get($this->getStub('select'));
-        
+
+
         $this->replaceStubText($stub, "DUMMYFIELDNAME", $fieldName);
         $this->replaceStubText($stub, "DUMMYLABEL", $label);
+
 
         $this->setAttributeTextOfStub($stub, $attributes);
         $this->setOptionTextOfStub($stub, $options);
@@ -314,6 +316,23 @@ class FormGenerator {
     }
 
     /**
+     * get the text field using stub template
+     *
+     * @todo add attribute feature and etc
+     *
+     * @param  string  $buttonText
+     * @return $stub
+     */
+    public function button($buttonText = "Save", $attributes = []) {
+        $stub = $this->files->get($this->getStub('button'));
+
+        $this->replaceStubText($stub, "DUMMYBUTTONTEXT", $buttonText);
+        $this->setAttributeTextOfStub($stub, $attributes);
+
+        return $stub;
+    }
+
+    /**
      * get the attribuet text from given array
      * 
      * @todo add attribute feature and etc
@@ -340,7 +359,7 @@ class FormGenerator {
     public function getAttributeText($attributes = []) {
         $attributeText = "";
         foreach ($attributes as $attKey => $attVal) {
-            $attributeText .= $attKey . "=" . $attVal;
+            $attributeText .= $attKey . "=" . $attVal . " ";
         }
 
         return $attributeText;

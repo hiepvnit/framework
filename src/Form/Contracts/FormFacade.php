@@ -14,6 +14,6 @@ class FormFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'form';
+        return 'mage2form';
     }
 }
