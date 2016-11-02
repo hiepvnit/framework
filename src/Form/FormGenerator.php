@@ -312,6 +312,22 @@ class FormGenerator {
 
         return $stub;
     }
+    /**
+     * get the text field using stub template 
+     * 
+     * @todo add attribute feature and etc
+     *
+     * @param  string  $buttonText
+     * @return $stub
+     */
+    public function button($buttonText = "Save", $attributes = []) {
+        $stub = $this->files->get($this->getStub('button'));
+
+        $this->replaceStubText($stub, "DUMMYBUTTONTEXT", $buttonText);
+        $this->setAttributeTextOfStub($stub, $attributes);
+
+        return $stub;
+    }
 
     /**
      * get the attribuet text from given array
