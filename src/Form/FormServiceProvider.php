@@ -22,7 +22,7 @@ class FormServiceProvider extends  ServiceProvider {
     {
 
         $this->registerFormBuilder();
-        $this->app->alias('mage2form', 'Mage2\Framework\Form\FormGenerator');
+        $this->app->alias('form', 'Mage2\Framework\Form\FormGenerator');
     }
 
     /**
@@ -32,7 +32,7 @@ class FormServiceProvider extends  ServiceProvider {
      */
     protected function registerFormBuilder()
     {
-        $this->app->singleton('mage2form', function ($app) {
+        $this->app->singleton('form', function ($app) {
             //dd(($app['request']->session()));
             $form = new FormGenerator($app['files'], $app['url'], $app['request'] ,$app['view'], $app['session.store']->getToken());
             return $form->setSessionStore($app['session.store']);
@@ -45,6 +45,6 @@ class FormServiceProvider extends  ServiceProvider {
      */
     public function provides()
     {
-        return [ 'mage2form',  'Mage2\Framework\Form\FormGenerator'];
+        return [ 'form',  'Mage2\Framework\Form\FormGenerator'];
     }
 }

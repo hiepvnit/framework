@@ -1,11 +1,11 @@
 <?php
-namespace Mage2\Framework\Form\Contracts;
+namespace Mage2\Framework\DataGrid;
 
 use Illuminate\Support\Facades\Facade;
 /**
  * @see \Collective\Html\FormBuilder
  */
-class FormFacade extends Facade
+class DataGridFacade extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -14,6 +14,6 @@ class FormFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'form';
+        return 'datagrid';
     }
 }
