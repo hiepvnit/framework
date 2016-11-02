@@ -379,10 +379,10 @@ class FormGenerator {
      * @param  string  $buttonText
      * @return $stub
      */
-    public function getAttributeText($attributes = []) {
+    public function getAttributeText($attributes = ['class' => 'form-group']) {
         $attributeText = "";
         foreach ($attributes as $attKey => $attVal) {
-            $attributeText .= $attKey . "=" . $attVal;
+            $attributeText .= $attKey . "='" . $attVal . "' ";
         }
 
         return $attributeText;

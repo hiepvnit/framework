@@ -1,7 +1,7 @@
 <div class="form-group DUMMYERRORCLASS">
     <label for="DUMMYFIELDNAME">DUMMYLABEL</label>
     <input  type="file" 
-            class="form-control" 
+
             id="DUMMYFIELDNAME" 
             name="DUMMYFIELDNAME" 
             DUMMYATTRIBUTES 
