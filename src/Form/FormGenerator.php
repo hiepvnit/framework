@@ -210,7 +210,6 @@ class FormGenerator {
 
         return $stub;
     }
-
     /**
      * get the text field using stub template 
      * 
@@ -221,9 +220,9 @@ class FormGenerator {
      * @param  array  $attributes
      * @return $stub
      */
-    public function password($fieldName, $label = "", $attributes = []) {
+    public function file($fieldName, $label = "", $attributes = []) {
 
-        $stub = $this->files->get($this->getStub('text'));
+        $stub = $this->files->get($this->getStub('file'));
 
         $this->replaceStubText($stub, "DUMMYFIELDNAME", $fieldName);
         $this->replaceStubText($stub, "DUMMYLABEL", $label);
@@ -239,10 +238,33 @@ class FormGenerator {
      * 
      * @todo add attribute feature and etc
      *
+     * @param  string  $fieldName
+     * @param  string  $label
+     * @param  array  $attributes
+     * @return $stub
+     */
+    public function password($fieldName, $label = "", $attributes = []) {
+
+        $stub = $this->files->get($this->getStub('password'));
+
+        $this->replaceStubText($stub, "DUMMYFIELDNAME", $fieldName);
+        $this->replaceStubText($stub, "DUMMYLABEL", $label);
+
+        $this->setAttributeTextOfStub($stub, $attributes);
+        $this->setErrorStubAndValue($stub, $fieldName, $updateValue = false);
+
+        return $stub;
+    }
+
+    /**
+     * get the text field using stub template 
+     * 
+     * @todo add attribute feature and etc
+     *
      * @param  string  $buttonText
      * @return $stub
      */
-    public function setErrorStubAndValue(&$stub, $fieldName) {
+    public function setErrorStubAndValue(&$stub, $fieldName, $updateValue  = true) {
 
         $errorClass = "";
         $dummyErrorMessageStub = "";
@@ -261,7 +283,11 @@ class FormGenerator {
 
         $this->replaceStubText($stub, "DUMMYERRORTEXT", $dummyErrorMessageStub);
         $this->replaceStubText($stub, "DUMMYERRORCLASS", $errorClass);
-        $this->replaceStubText($stub, "DUMMYVALUE", $value);
+        if($updateValue === false) {
+            $value = "";
+            //dd($value);
+        }
+            $this->replaceStubText($stub, "DUMMYVALUE", $value);
 
         return $this;
     }
