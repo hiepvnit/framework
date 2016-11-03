@@ -197,7 +197,7 @@ class FormGenerator {
      * @param  array  $attributes
      * @return $stub
      */
-    public function hidden($fieldName, $value) {
+    public function hidden($fieldName, $value = "") {
 
         $stub = $this->files->get($this->getStub('hidden'));
 
