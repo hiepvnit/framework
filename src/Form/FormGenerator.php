@@ -187,6 +187,26 @@ class FormGenerator {
         return $stub;
     }
 
+    /**
+     * get the text field using stub template
+     *
+     * @todo add attribute feature and etc
+     *
+     * @param  string  $fieldName
+     * @param  string  $label
+     * @param  array  $attributes
+     * @return $stub
+     */
+    public function hidden($fieldName, $value) {
+
+        $stub = $this->files->get($this->getStub('hidden'));
+
+        $this->replaceStubText($stub, "DUMMYFIELDNAME", $fieldName);
+        $this->replaceStubText($stub, "DUMMYVALUE", $value);
+
+        return $stub;
+    }
+
 
     /**
      * get the text field using stub template 
@@ -269,7 +289,15 @@ class FormGenerator {
         $errorClass = "";
         $dummyErrorMessageStub = "";
         $errors = $this->request->session()->get('errors');
-        $value = (isset($this->model->$fieldName)) ? $this->model->$fieldName : "";
+
+        if(isset($this->model->$fieldName)) {
+            $value = $this->model->$fieldName;
+        } elseif(method_exists($this->model,'get')) {
+            $value  = $this->model->get($fieldName);
+        } else {
+            $value = "";
+        }
+
 
         if(NULL !== $errors && $errors->has($fieldName)) {
         $dummyErrorMessageStub = $this->files->get($this->getStub('error'));
