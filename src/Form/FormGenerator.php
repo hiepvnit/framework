@@ -181,7 +181,7 @@ class FormGenerator {
         $this->replaceStubText($stub, "DUMMYLABEL", $label);
 
         $this->setAttributeTextOfStub($stub, $attributes);
-        $this->setOptionTextOfStub($stub, $options);
+        $this->setOptionTextOfStub($stub, $options,$fieldName);
         $this->setErrorStubAndValue($stub, $fieldName);
 
         return $stub;
@@ -314,6 +314,7 @@ class FormGenerator {
         $dummyErrorMessageStub = "";
         $errors = $this->request->session()->get('errors');
 
+
         if(isset($this->model->$fieldName)) {
             $value = $this->model->$fieldName;
         } elseif(method_exists($this->model,'get')) {
@@ -352,8 +353,8 @@ class FormGenerator {
      * @param  string  $buttonText
      * @return $stub
      */
-    public function setOptionTextOfStub(&$stub, $options = []) {
-        $optionsText = $this->getOptionText($options);
+    public function setOptionTextOfStub(&$stub, $options = [], $fieldName) {
+        $optionsText = $this->getOptionText($options, $fieldName);
         $this->replaceStubText($stub, "DUMMYOPTIONS", $optionsText);
 
         return $this;
@@ -415,10 +416,16 @@ class FormGenerator {
      * @param  array  $options
      * @return $stub
      */
-    public function getOptionText($options = []) {
+    public function getOptionText($options = [] , $fieldName = "") {
         $optionText = "";
+
         foreach ($options as $attKey => $attVal) {
-            $optionText .= "<option value='$attKey'> $attVal </option>";
+            if($this->model->$fieldName == $attKey) {
+                $optionText .= "<option selected value='$attKey'> $attVal </option>";
+            } else {
+                $optionText .= "<option value='$attKey'> $attVal </option>";
+            }
+
         }
 
         return $optionText;

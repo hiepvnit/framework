@@ -40,7 +40,7 @@ class LinkColumn {
     public function executeCallback($row) {
         $return = $this->callback;
         if($row && is_callable($return))
-            return $return($this->label, $row);
+            return $return($row);
         return false;
     }
 
