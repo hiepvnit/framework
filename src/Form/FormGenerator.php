@@ -230,6 +230,30 @@ class FormGenerator {
 
         return $stub;
     }
+
+    /**
+     * get the text field using stub template 
+     * 
+     * @todo add attribute feature and etc
+     *
+     * @param  string  $fieldName
+     * @param  string  $label
+     * @param  array  $attributes
+     * @return $stub
+     */
+    public function radio($fieldName, $label = "", $value=1,$attributes = []) {
+
+        $stub = $this->files->get($this->getStub('radio'));
+
+        $this->replaceStubText($stub, "DUMMYFIELDNAME", $fieldName);
+        $this->replaceStubText($stub, "DUMMYLABEL", $label);
+        $this->replaceStubText($stub, "DUMMYVALUE", $value);
+
+        $this->setAttributeTextOfStub($stub, $attributes);
+        $this->setErrorStubAndValue($stub, $fieldName, $updateValue = false);
+
+        return $stub;
+    }
     /**
      * get the text field using stub template 
      * 
