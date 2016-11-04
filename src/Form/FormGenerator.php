@@ -315,15 +315,9 @@ class FormGenerator {
         $errors = $this->request->session()->get('errors');
 
 
-        if(isset($this->model->$fieldName)) {
-            $value = $this->model->$fieldName;
-        } elseif(method_exists($this->model,'get')) {
-            $value  = $this->model->get($fieldName);
-        } else {
-            $value = "";
-        }
+        $value = $this->_getFieldValue($fieldName);
 
-
+        
         if(NULL !== $errors && $errors->has($fieldName)) {
         $dummyErrorMessageStub = $this->files->get($this->getStub('error'));
             $this->replaceStubText($dummyErrorMessageStub, "DUMMYERRORMESSAGE" , $errors->first($fieldName));
@@ -420,7 +414,7 @@ class FormGenerator {
         $optionText = "";
 
         foreach ($options as $attKey => $attVal) {
-            if(isset($this->model->$fieldName) && $this->model->$fieldName == $attKey) {
+            if($this->_getFieldValue($fieldName) == $attKey) {
                 $optionText .= "<option selected value='$attKey'> $attVal </option>";
             } else {
                 $optionText .= "<option value='$attKey'> $attVal </option>";
@@ -481,4 +475,15 @@ class FormGenerator {
         return $this;
     }
 
+    
+    private function _getFieldValue($fieldName) {
+        $value = "";
+         if(isset($this->model->$fieldName)) {
+            $value = $this->model->$fieldName;
+        } elseif(method_exists($this->model,'get')) {
+            $value  = $this->model->get($fieldName);
+        } 
+        
+        return $value;
+    }
 }
