@@ -420,7 +420,7 @@ class FormGenerator {
         $optionText = "";
 
         foreach ($options as $attKey => $attVal) {
-            if($this->model->$fieldName == $attKey) {
+            if(isset($this->model->$fieldName) && $this->model->$fieldName == $attKey) {
                 $optionText .= "<option selected value='$attKey'> $attVal </option>";
             } else {
                 $optionText .= "<option value='$attKey'> $attVal </option>";
