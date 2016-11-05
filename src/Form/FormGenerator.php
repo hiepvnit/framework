@@ -173,16 +173,25 @@ class FormGenerator {
      * @param  array  $attributes
      * @return $stub
      */
-    public function select($fieldName, $label = "", $options = [],$attributes = []) {
+    public function select($fieldName, $label = "", $options = [],$attributes = ['class' => 'form-control']) {
 
         $stub = $this->files->get($this->getStub('select'));
         
         $this->replaceStubText($stub, "DUMMYFIELDNAME", $fieldName);
         $this->replaceStubText($stub, "DUMMYLABEL", $label);
 
+        $value = null;
+        $updateValue = true;
+        if(isset($attributes['value'])) {
+            $value = $attributes['value'];
+            unset($attributes['value']);
+            $updateValue = false;
+            
+        }
         $this->setAttributeTextOfStub($stub, $attributes);
-        $this->setOptionTextOfStub($stub, $options,$fieldName);
-        $this->setErrorStubAndValue($stub, $fieldName);
+        
+        $this->setOptionTextOfStub($stub, $options,$fieldName, $value);
+        $this->setErrorStubAndValue($stub, $fieldName, $updateValue);
 
         return $stub;
     }
@@ -347,8 +356,9 @@ class FormGenerator {
      * @param  string  $buttonText
      * @return $stub
      */
-    public function setOptionTextOfStub(&$stub, $options = [], $fieldName) {
-        $optionsText = $this->getOptionText($options, $fieldName);
+    public function setOptionTextOfStub(&$stub, $options = [], $fieldName, $value = null) {
+        
+        $optionsText = $this->getOptionText($options, $fieldName,$value);
         $this->replaceStubText($stub, "DUMMYOPTIONS", $optionsText);
 
         return $this;
@@ -362,7 +372,7 @@ class FormGenerator {
      * @param  string  $buttonText
      * @return $stub
      */
-    public function setAttributeTextOfStub(&$stub, $attributes = []) {
+    public function setAttributeTextOfStub(&$stub, $attributes) {
         $attributeText = $this->getAttributeText($attributes);
         $this->replaceStubText($stub, "DUMMYATTRIBUTES", $attributeText);
 
@@ -410,14 +420,24 @@ class FormGenerator {
      * @param  array  $options
      * @return $stub
      */
-    public function getOptionText($options = [] , $fieldName = "") {
+    public function getOptionText($options = [] , $fieldName = "", $fieldValue = NULL) {
         $optionText = "";
 
+        if(null === $fieldValue) {
+            $fieldValue = $this->_getFieldValue($fieldName);
+        }
+     
         foreach ($options as $attKey => $attVal) {
-            if($this->_getFieldValue($fieldName) == $attKey) {
+            
+            if(is_array($fieldValue)) {
+                $isSelectedValue = in_array($attKey, $fieldValue);
+            } else {
+                $isSelectedValue = ($attKey == $fieldValue) ? true : false;
+            }
+            if($isSelectedValue) {
                 $optionText .= "<option selected value='$attKey'> $attVal </option>";
             } else {
-                $optionText .= "<option value='$attKey'> $attVal </option>";
+                $optionText .= "<option  value='$attKey'> $attVal </option>";
             }
 
         }
@@ -434,6 +454,7 @@ class FormGenerator {
      */
     public function getAttributeText($attributes = ['class' => 'form-group']) {
         $attributeText = "";
+        unset($attributes['value']);
         foreach ($attributes as $attKey => $attVal) {
             $attributeText .= $attKey . "='" . $attVal . "' ";
         }

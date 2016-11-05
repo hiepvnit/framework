@@ -1,7 +1,6 @@
 <div class="form-group DUMMYERRORCLASS">
     <label for="DUMMYFIELDNAME">DUMMYLABEL</label>
-    <select class="form-control" 
-            id="DUMMYFIELDNAME" 
+    <select id="DUMMYFIELDNAME" 
             name="DUMMYFIELDNAME" 
             DUMMYATTRIBUTES 
             placeholder="DUMMYLABEL" 
