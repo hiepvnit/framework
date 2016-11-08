@@ -5,7 +5,7 @@ use Illuminate\Foundation\Application as LaravelApplication;
 
 class Application  extends LaravelApplication{
 
-    protected $namespace = "Mage2\System\\";
+    protected $namespace = "Mage2\Framework\\";
     /**
      * Get the path to the bootstrap directory.
      *
