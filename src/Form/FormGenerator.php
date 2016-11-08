@@ -151,7 +151,7 @@ class FormGenerator {
      * @param  array  $attributes
      * @return $stub
      */
-    public function textarea($fieldName, $label = "", $attributes = []) {
+    public function textarea($fieldName, $label = "", $attributes = ['class' => 'form-control']) {
 
         $stub = $this->files->get($this->getStub('textarea'));
 
