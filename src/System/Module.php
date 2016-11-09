@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\App;
 use Mage2\Framework\Payment\PaymentManager;
 use Mage2\Framework\Shipping\ShippingManager;
 use Mage2\Framework\Theme\ThemeManager;
-
 use Mage2\Framework\System\View\AdminMenu;
 use Mage2\Framework\System\View\Facades\AdminMenu as AdminMenuFacade;
 use Mage2\Framework\System\Middleware\Website as WebsiteMiddleware;
@@ -36,17 +35,22 @@ class Module extends BaseModule {
         //
         $this->registerAdminMenuFacade();
         $this->_registerShippingFacade();
-        $this->_registerPaymentFacade();
+
+        //$this->registerPaymentManager();
+        //$this->_registerPaymentFacade();
+
+
+
+
         $this->_registerThemeFacade();
 
         $this->app['request']->server->set('HTTPS', 'off');
 
 
-        View::composer(['layouts.admin-nav','layouts.admin-bootstrap-nav'], function ($view) {
+        View::composer(['layouts.admin-nav', 'layouts.admin-bootstrap-nav'], function ($view) {
             $adminMenus = (array) AdminMenuFacade::getMenuItems();
             $view->with('adminMenus', $adminMenus);
         });
-
     }
 
     /**
@@ -56,6 +60,9 @@ class Module extends BaseModule {
      */
     public function register() {
 
+        $this->registerPaymentManager();
+
+        $this->app->alias('Payment', 'Mage2\Framework\Paymnemt\PaymentManager');
         $this->app->bind('view.finder', function ($app) {
             $paths = $app['config']['view.paths'];
 
@@ -72,8 +79,6 @@ class Module extends BaseModule {
         $this->registerTheme();
 
         //$this->registerUrlGenerator();
-
-
     }
 
     /**
@@ -91,7 +96,6 @@ class Module extends BaseModule {
         //$router->middleware('web', EncryptCookies::class);
         //$router->middleware('web', VerifyCsrfToken::class);
     }
-
 
     public function registerViewComposerData() {
         view()->composer(['layouts.admin', 'template.header-nav'], function ($view) {
@@ -116,25 +120,25 @@ class Module extends BaseModule {
             $inStockOptions = $productAttrobuteModel->getInStockOptions();
 
             $view
-                ->with('trackStockOptions', $trackStockOptions)
-                ->with('inStockOptions', $inStockOptions);
+                    ->with('trackStockOptions', $trackStockOptions)
+                    ->with('inStockOptions', $inStockOptions);
         });
         view()->composer('admin.catalog.product.boxes.basic', function ($view) {
             $productAttrobuteModel = new ProductAttribute();
             $isFeaturedOptions = $productAttrobuteModel->getIsFeaturedOptions();
             $statusOptions = $productAttrobuteModel->getStatusOptions();
             $view
-                ->with('isFeaturedOptions', $isFeaturedOptions)
-                ->with('statusOptions', $statusOptions);
+                    ->with('isFeaturedOptions', $isFeaturedOptions)
+                    ->with('statusOptions', $statusOptions);
         });
         view()->composer('admin.catalog.product.boxes.inventory', function ($view) {
             $productAttrobuteModel = new ProductAttribute();
             $isTaxableOptions = $productAttrobuteModel->getIsTaxableOptions();
             $view
-                ->with('isTaxableOptions', $isTaxableOptions);
+                    ->with('isTaxableOptions', $isTaxableOptions);
         });
 
-        view()->composer(['layouts.app','layouts.app-bootstrap'], function ($view) {
+        view()->composer(['layouts.app-bootstrap'], function ($view) {
             //$websiteId = Session::get('website_id');
             //$baseCategories = Category::where('parent_id','=','')
             //                        ->where('website_id','=',$websiteId)
@@ -145,25 +149,23 @@ class Module extends BaseModule {
             $baseCategories = $categoryModel->getAllCategories();
 
             $view->with('categories', $baseCategories)
-                ->with('cart', $cart);
+                    ->with('cart', $cart);
         });
     }
 
-    public function registerModule()
-    {
+    public function registerModule() {
         $mage2Module = config('module');
         foreach ($mage2Module as $namespace => $path) {
             $loader = new ClassLoader();
             $loader->addPsr4($namespace, $path);
             $loader->register();
             //Register ServiceProvider for Modules
-            $extensionProvider = str_replace('\\', '', $namespace.'ServiceProvider');
-            App::register($namespace.$extensionProvider);
+            $extensionProvider = str_replace('\\', '', $namespace . 'ServiceProvider');
+            App::register($namespace . $extensionProvider);
         }
     }
 
-    public function registerTheme()
-    {
+    public function registerTheme() {
         $mage2Module = config('theme');
         foreach ($mage2Module as $namespace => $path) {
             $loader = new ClassLoader();
@@ -172,14 +174,11 @@ class Module extends BaseModule {
             //Register ServiceProvider for Modules
             //$extensionProvider = str_replace("\\", "", $namespace. "\\" . "ThemeInfo");
             //dd($namespace . "ThemeInfo");die;
-            App::register($namespace.'ThemeInfo');
+            App::register($namespace . 'ThemeInfo');
         }
     }
 
-
-
-    private function _registerShippingFacade()
-    {
+    private function _registerShippingFacade() {
         App::bind('Shipping', function () {
             return new ShippingManager();
         });
@@ -190,50 +189,44 @@ class Module extends BaseModule {
      *
      * @return \Closure
      */
-    protected function requestRebinder()
-    {
+    protected function requestRebinder() {
         return function ($app, $request) {
             $app['url']->setRequest($request);
         };
     }
 
-    private function _registerPaymentFacade()
-    {
-        App::bind('Payment', function () {
+    private function registerPaymentManager() {
+        $this->app->singleton('Payment', function ($app) {
             return new PaymentManager();
         });
     }
 
-    private function _registerThemeFacade()
-    {
+    private function _registerThemeFacade() {
         App::bind('Theme', function () {
             return new ThemeManager();
         });
     }
 
-    private function _registerExtensionFacade()
-    {
+    private function _registerExtensionFacade() {
         App::bind('Extension', function () {
             return new ExtensionManager();
         });
     }
 
-    public function registerAdminMenuFacade()
-    {
+    public function registerAdminMenuFacade() {
 
         App::bind('AdminMenu', function () {
             return new AdminMenu();
         });
     }
 
-
     /**
      * Get the services provided by the provider.
      *
      * @return array
      */
-    public function provides()
-    {
-        return ['AdminConfiguration','AdminMenu','Theme','Payment','Shipping'];
+    public function provides() {
+        return ['AdminConfiguration', 'AdminMenu', 'Theme', 'Payment', 'Shipping', 'Mage2\Framework\Paymnemt\PaymentManager'];
     }
+
 }

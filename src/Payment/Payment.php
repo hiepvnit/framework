@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Framewor\Payment;
+namespace Mage2\Framework\Payment;
 
 abstract class Payment
 {

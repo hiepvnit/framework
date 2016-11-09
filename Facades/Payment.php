@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Framework\Payment\Facade;
+namespace Mage2\Framework\Payment\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
