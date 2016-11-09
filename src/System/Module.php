@@ -5,7 +5,6 @@ namespace Mage2\Framework\System;
 use Illuminate\Support\Facades\View;
 use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Facades\App;
-use Mage2\Framework\Payment\PaymentManager;
 use Mage2\Framework\Shipping\ShippingManager;
 use Mage2\Framework\Theme\ThemeManager;
 use Mage2\Framework\System\View\AdminMenu;
@@ -60,9 +59,6 @@ class Module extends BaseModule {
      */
     public function register() {
 
-        $this->registerPaymentManager();
-
-        $this->app->alias('Payment', 'Mage2\Framework\Paymnemt\PaymentManager');
         $this->app->bind('view.finder', function ($app) {
             $paths = $app['config']['view.paths'];
 
@@ -193,12 +189,6 @@ class Module extends BaseModule {
         return function ($app, $request) {
             $app['url']->setRequest($request);
         };
-    }
-
-    private function registerPaymentManager() {
-        $this->app->singleton('Payment', function ($app) {
-            return new PaymentManager();
-        });
     }
 
     private function _registerThemeFacade() {

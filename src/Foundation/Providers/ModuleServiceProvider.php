@@ -4,6 +4,8 @@ namespace Mage2\Framework\Foundation\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Mage2\Framework\Configuration\ConfigurationServiceProvider;
+use Mage2\Framework\Payment\PaymentServiceProvider;
+use Mage2\Framework\Shipping\ShippingServiceProvider;
 
 class ModuleServiceProvider extends ServiceProvider
 {
@@ -44,7 +46,9 @@ class ModuleServiceProvider extends ServiceProvider
     }
 
     protected $providers = [
-        ConfigurationServiceProvider::class
+        ConfigurationServiceProvider::class,
+        PaymentServiceProvider::class,
+        ShippingServiceProvider::class,
     ];
 
 }
