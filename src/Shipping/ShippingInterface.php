@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Framework\System\Shipping;
+namespace Mage2\Framework\Shipping;
 
 interface ShippingInterface
 {

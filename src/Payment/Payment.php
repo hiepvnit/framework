@@ -1,8 +1,8 @@
 <?php
 
-namespace Mage2\Framework\System\Shipping;
+namespace Mage2\Framewor\Payment;
 
-abstract class Shipping
+abstract class Payment
 {
     abstract public function process($orderData, $cartProducts);
 }

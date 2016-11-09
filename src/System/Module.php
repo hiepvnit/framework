@@ -5,9 +5,9 @@ namespace Mage2\Framework\System;
 use Illuminate\Support\Facades\View;
 use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Facades\App;
-use Mage2\Framework\System\Payment\PaymentManager;
-use Mage2\Framework\System\Shipping\ShippingManager;
-use Mage2\Framework\System\Theme\ThemeManager;
+use Mage2\Framework\Payment\PaymentManager;
+use Mage2\Framework\Shipping\ShippingManager;
+use Mage2\Framework\Theme\ThemeManager;
 
 use Mage2\Framework\System\View\AdminMenu;
 use Mage2\Framework\System\View\Facades\AdminMenu as AdminMenuFacade;

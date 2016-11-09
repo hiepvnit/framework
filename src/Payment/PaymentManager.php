@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Framework\System\Payment;
+namespace Mage2\Framework\Payment;
 
 use Illuminate\Support\Collection;
 

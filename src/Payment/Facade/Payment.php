@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Framework\System\Payment\Facade;
+namespace Mage2\Framework\Payment\Facade;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -8,6 +8,6 @@ class Payment extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'Mage2\Framework\System\Payment\PaymentManager';
+        return 'Mage2\Framework\Payment\PaymentManager';
     }
 }

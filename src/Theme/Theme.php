@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Framework\System\Theme;
+namespace Mage2\Framework\Theme;
 
 use Illuminate\Support\ServiceProvider;
 
