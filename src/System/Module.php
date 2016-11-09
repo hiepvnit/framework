@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\App;
 use Mage2\Framework\System\Payment\PaymentManager;
 use Mage2\Framework\System\Shipping\ShippingManager;
 use Mage2\Framework\System\Theme\ThemeManager;
-use Mage2\Framework\System\View\AdminConfiguration;
+
 use Mage2\Framework\System\View\AdminMenu;
 use Mage2\Framework\System\View\Facades\AdminMenu as AdminMenuFacade;
 use Mage2\Framework\System\Middleware\Website as WebsiteMiddleware;
@@ -33,11 +33,6 @@ class Module extends BaseModule {
      * @return void
      */
     public function boot() {
-
-
-        $this->registerAdminConfigurationManager();
-        $this->registerAdminConfigurationFacade();
-
         //
         $this->registerAdminMenuFacade();
         $this->_registerShippingFacade();
@@ -60,7 +55,7 @@ class Module extends BaseModule {
      * @return void
      */
     public function register() {
-        parent::register();
+
         $this->app->bind('view.finder', function ($app) {
             $paths = $app['config']['view.paths'];
 
@@ -229,27 +224,6 @@ class Module extends BaseModule {
         App::bind('AdminMenu', function () {
             return new AdminMenu();
         });
-    }
-
-    /**
-     * Register the form builder instance.
-     *
-     * @return void
-     */
-    protected function registerAdminConfigurationManager()
-    {
-        $this->app['AdminConfiguration'] = $this->app->share(function($app)
-        {
-            return new AdminConfiguration();
-        });
-    }
-    public function registerAdminConfigurationFacade()
-    {
-
-        //App::bind('AdminConfiguration', function () {
-        //    return new AdminConfigurationManager();
-        //});
-        $this->app->alias('AdminConfiguration', 'Mage2\Framework\System\View\AdminConfiguration');
     }
 
 

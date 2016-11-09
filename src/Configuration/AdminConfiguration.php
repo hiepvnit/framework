@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Framework\System\View;
+namespace Mage2\Framework\Configuration;
 
 class AdminConfiguration
 {

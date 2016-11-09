@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Framework\System\View\Facades;
+namespace Mage2\Framework\Configuration\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -8,6 +8,6 @@ class AdminConfiguration extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'Mage2\Framework\System\View\AdminConfiguration';
+        return 'Mage2\Framework\Configuration\AdminConfiguration';
     }
 }
