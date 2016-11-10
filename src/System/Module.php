@@ -33,23 +33,14 @@ class Module extends BaseModule {
     public function boot() {
         //
         $this->registerAdminMenuFacade();
-        $this->_registerShippingFacade();
+        
 
         //$this->registerPaymentManager();
         //$this->_registerPaymentFacade();
 
-
-
-
         $this->_registerThemeFacade();
 
         $this->app['request']->server->set('HTTPS', 'off');
-
-
-        View::composer(['layouts.admin-nav', 'layouts.admin-bootstrap-nav'], function ($view) {
-            $adminMenus = (array) AdminMenuFacade::getMenuItems();
-            $view->with('adminMenus', $adminMenus);
-        });
     }
 
     /**
@@ -94,12 +85,6 @@ class Module extends BaseModule {
     }
 
     public function registerViewComposerData() {
-        view()->composer(['layouts.admin', 'template.header-nav'], function ($view) {
-            $user = Auth::guard('admin')->user();
-            $view->with('user', $user);
-        });
-
-
         view()->composer('*', function ($view) {
             $view->with('isDefaultWebsite', Session::get('is_default_website'));
         });
@@ -109,44 +94,6 @@ class Module extends BaseModule {
             $view->with('user', $user);
         });
 
-
-        view()->composer('admin.catalog.product.boxes.inventory', function ($view) {
-            $productAttrobuteModel = new ProductAttribute();
-            $trackStockOptions = $productAttrobuteModel->getTrackStockOptions();
-            $inStockOptions = $productAttrobuteModel->getInStockOptions();
-
-            $view
-                    ->with('trackStockOptions', $trackStockOptions)
-                    ->with('inStockOptions', $inStockOptions);
-        });
-        view()->composer('admin.catalog.product.boxes.basic', function ($view) {
-            $productAttrobuteModel = new ProductAttribute();
-            $isFeaturedOptions = $productAttrobuteModel->getIsFeaturedOptions();
-            $statusOptions = $productAttrobuteModel->getStatusOptions();
-            $view
-                    ->with('isFeaturedOptions', $isFeaturedOptions)
-                    ->with('statusOptions', $statusOptions);
-        });
-        view()->composer('admin.catalog.product.boxes.inventory', function ($view) {
-            $productAttrobuteModel = new ProductAttribute();
-            $isTaxableOptions = $productAttrobuteModel->getIsTaxableOptions();
-            $view
-                    ->with('isTaxableOptions', $isTaxableOptions);
-        });
-
-        view()->composer(['layouts.app-bootstrap'], function ($view) {
-            //$websiteId = Session::get('website_id');
-            //$baseCategories = Category::where('parent_id','=','')
-            //                        ->where('website_id','=',$websiteId)
-            //                        ->get();
-
-            $cart = count(Session::get('cart'));
-            $categoryModel = new Category();
-            $baseCategories = $categoryModel->getAllCategories();
-
-            $view->with('categories', $baseCategories)
-                    ->with('cart', $cart);
-        });
     }
 
     public function registerModule() {
