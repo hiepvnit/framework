@@ -2,19 +2,12 @@
 
 namespace Mage2\Framework\System;
 
-use Illuminate\Support\Facades\View;
 use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Facades\App;
-use Mage2\Framework\Shipping\ShippingManager;
 use Mage2\Framework\Theme\ThemeManager;
 use Mage2\Framework\System\View\AdminMenu;
-use Mage2\Framework\System\View\Facades\AdminMenu as AdminMenuFacade;
 use Mage2\Framework\System\Middleware\Website as WebsiteMiddleware;
-use Illuminate\Support\Facades\Session;
-use Mage2\Catalog\Models\Category;
-use Illuminate\Support\Facades\Auth;
 use Mage2\Framework\System\View\FileViewFinder;
-use Mage2\Attribute\Models\ProductAttribute;
 use Illuminate\View\ViewServiceProvider as BaseModule;
 
 class Module extends BaseModule {
@@ -109,12 +102,6 @@ class Module extends BaseModule {
         }
     }
 
-    private function _registerShippingFacade() {
-        App::bind('Shipping', function () {
-            return new ShippingManager();
-        });
-    }
-
     /**
      * Get the URL generator request rebinder.
      *
@@ -129,12 +116,6 @@ class Module extends BaseModule {
     private function _registerThemeFacade() {
         App::bind('Theme', function () {
             return new ThemeManager();
-        });
-    }
-
-    private function _registerExtensionFacade() {
-        App::bind('Extension', function () {
-            return new ExtensionManager();
         });
     }
 
