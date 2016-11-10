@@ -62,7 +62,6 @@ class Module extends BaseModule {
         //$this->registerAdminMenu();
         //$this->registerAdminConfiguration();
         //$this->registerViewPath();
-        $this->registerViewComposerData();
         $this->registerTheme();
 
         //$this->registerUrlGenerator();
@@ -84,17 +83,6 @@ class Module extends BaseModule {
         //$router->middleware('web', VerifyCsrfToken::class);
     }
 
-    public function registerViewComposerData() {
-        view()->composer('*', function ($view) {
-            $view->with('isDefaultWebsite', Session::get('is_default_website'));
-        });
-
-        view()->composer(['my-account.sidebar'], function ($view) {
-            $user = Auth::user();
-            $view->with('user', $user);
-        });
-
-    }
 
     public function registerModule() {
         $mage2Module = config('module');
