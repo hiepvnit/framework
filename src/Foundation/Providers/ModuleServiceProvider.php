@@ -8,6 +8,8 @@ use Mage2\Framework\Payment\PaymentServiceProvider;
 use Mage2\Framework\Shipping\ShippingServiceProvider;
 use Mage2\Framework\AdminMenu\AdminMenuServiceProvider;
 use Mage2\Framework\Theme\ThemeServiceProvider;
+use Mage2\Framework\Form\FormServiceProvider;
+use Mage2\Framework\DataGrid\DataGridServiceProvider;
 
 class ModuleServiceProvider extends ServiceProvider
 {
@@ -24,6 +26,8 @@ class ModuleServiceProvider extends ServiceProvider
         ShippingServiceProvider::class,
         AdminMenuServiceProvider::class,
         ThemeServiceProvider::class,
+        FormServiceProvider::class,
+        DataGridServiceProvider::class
     ];
 
 }

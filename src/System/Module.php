@@ -20,7 +20,7 @@ class Module extends BaseModule {
      * @return void
      */
     public function boot() {
-        $this->_registerThemeFacade();
+
         $this->app['request']->server->set('HTTPS', 'off');
     }
 
