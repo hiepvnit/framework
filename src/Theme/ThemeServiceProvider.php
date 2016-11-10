@@ -1,7 +1,6 @@
 <?php
 namespace Mage2\Framework\Theme;
 
-use Mage2\Framework\Theme\ThemeManager;
 use Illuminate\Support\ServiceProvider;
 
 class ThemeServiceProvider extends ServiceProvider {

@@ -1,7 +1,6 @@
 <?php
 namespace Mage2\Framework\AdminMenu;
 
-use Mage2\Framework\AdminMenu\AdminMenuBuilder;
 use Illuminate\Support\ServiceProvider;
 
 class AdminMenuServiceProvider extends ServiceProvider {
