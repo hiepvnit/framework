@@ -26,7 +26,7 @@ class ModuleServiceProvider extends ServiceProvider
         ShippingServiceProvider::class,
         AdminMenuServiceProvider::class,
         ThemeServiceProvider::class,
-        FormServiceProvider::class,
+        'Mage2\Framework\Form\FormServiceProvider',
         DataGridServiceProvider::class
     ];
 

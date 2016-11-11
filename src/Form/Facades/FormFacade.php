@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Framework\Form\Contracts;
+namespace Mage2\Framework\Form\Facades;
 
 use Illuminate\Support\Facades\Facade;
 /**
