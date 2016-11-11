@@ -1,7 +1,9 @@
 <?php
 namespace Mage2\Framework\Theme;
 
+use Composer\Autoload\ClassLoader;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\App;
 
 class ThemeServiceProvider extends ServiceProvider {
 
@@ -18,8 +20,11 @@ class ThemeServiceProvider extends ServiceProvider {
      */
     public function register()
     {
+
         $this->registerTheme();
+
         $this->registerThemeNameSpace();
+
         $this->app->alias('theme', 'Mage2\Framework\Theme\ThemeManager');
     }
     /**
@@ -36,12 +41,19 @@ class ThemeServiceProvider extends ServiceProvider {
 
 
     public function registerThemeNameSpace() {
+
         $mage2Module = config('theme');
+
         foreach ($mage2Module as $namespace => $path) {
+
             $loader = new ClassLoader();
+
+
             $loader->addPsr4($namespace, $path);
             $loader->register();
+
             App::register($namespace . 'ThemeInfo');
+
         }
     }
 
@@ -53,6 +65,6 @@ class ThemeServiceProvider extends ServiceProvider {
      */
     public function provides()
     {
-        return ['theme', 'Mage2\Framework\Theme\ThemeManager\ThemeManager'];
+        return ['theme', 'Mage2\Framework\Theme\ThemeManager'];
     }
 }
