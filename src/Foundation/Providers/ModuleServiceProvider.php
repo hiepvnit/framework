@@ -2,6 +2,7 @@
 
 namespace Mage2\Framework\Foundation\Providers;
 
+use Illuminate\Support\AggregateServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use Mage2\Framework\Configuration\ConfigurationServiceProvider;
 use Mage2\Framework\Payment\PaymentServiceProvider;
@@ -11,7 +12,7 @@ use Mage2\Framework\Theme\ThemeServiceProvider;
 use Mage2\Framework\Form\FormServiceProvider;
 use Mage2\Framework\DataGrid\DataGridServiceProvider;
 
-class ModuleServiceProvider extends ServiceProvider
+class ModuleServiceProvider extends AggregateServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -21,13 +22,20 @@ class ModuleServiceProvider extends ServiceProvider
     protected $defer = true;
 
     protected $providers = [
-        ConfigurationServiceProvider::class,
+        'Mage2\Framework\Form\FormServiceProvider',
+        'Mage2\Framework\Configuration\ConfigurationServiceProvider',
+        'Mage2\Framework\DataGrid\DataGridServiceProvider'
+    ];
+
+    /*
+     *
+     *  ConfigurationServiceProvider::class,
         PaymentServiceProvider::class,
         ShippingServiceProvider::class,
         AdminMenuServiceProvider::class,
         ThemeServiceProvider::class,
-        'Mage2\Framework\Form\FormServiceProvider',
+
         DataGridServiceProvider::class
-    ];
+     */
 
 }
