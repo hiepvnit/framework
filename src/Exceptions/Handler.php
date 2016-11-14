@@ -1,6 +1,5 @@
 <?php
-
-namespace Mage2\Frameowrk\System\Exceptions;
+namespace Mage2\Framework\Exceptions;
 
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
