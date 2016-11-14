@@ -87,6 +87,7 @@ class FormGenerator {
     public function bind($model, $dummyReplacement = []) {
         $this->model = $model;
         $stub = $this->open($dummyReplacement);
+        
 
         return $stub;
     }
@@ -96,13 +97,16 @@ class FormGenerator {
      * 
      * @todo add attribute feature and etc
      *
-     * @param  Array  $dummyReplacement
+     * @param  Array  $attributes
      * @return $stub
      */
-    public function open($dummyReplacement = []) {
+    public function open($attributes = []) {
         $stub = $this->files->get($this->getStub('form-open'));
 
-        foreach ($dummyReplacement as $dummyText => $replacement) {
+        if(isset($attributes['files']) && $attributes['files'] == true) {
+            $this->replaceStubText($stub, strtoupper("DUMMYATTRIBUTE"), "enctype='multipart/form-data'");
+        }
+        foreach ($attributes as $dummyText => $replacement) {
 
             if(strtolower($dummyText)== "method") {
 
@@ -126,6 +130,10 @@ class FormGenerator {
 
         $csrfStub = $this->files->get($this->getStub('_csrf'));
         $this->replaceStubText($csrfStub, "DUMMYCSRF", $this->csrfToken);
+        
+        
+        
+        
         $stub = $stub . $csrfStub;
 
         
