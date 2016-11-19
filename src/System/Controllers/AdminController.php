@@ -28,6 +28,7 @@ class AdminController extends BaseController
 
         //@todo make authorisation gate Facade to work with admin users
         config(['auth.defaults.guard' => 'admin']);
+        config(['auth.defaults.password' => 'adminuser']);
 
 
         if (Schema::hasTable('configurations')) {
