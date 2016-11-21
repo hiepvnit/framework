@@ -105,6 +105,8 @@ class FormGenerator {
 
         if(isset($attributes['files']) && $attributes['files'] == true) {
             $this->replaceStubText($stub, strtoupper("DUMMYATTRIBUTE"), "enctype='multipart/form-data'");
+        } else {
+            $this->replaceStubText($stub, strtoupper("dummyattribute"), "");
         }
         foreach ($attributes as $dummyText => $replacement) {
 
