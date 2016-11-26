@@ -28,5 +28,6 @@ class ConsoleServiceProvider extends LaravelConsoleServiceProvider
         'Illuminate\Foundation\Providers\ComposerServiceProvider',
         'Illuminate\Queue\ConsoleServiceProvider',
         'Mage2\Framework\Database\MigrationServiceProvider',
+        'Mage2\Framework\Database\SeedServiceProvider',
     ];
 }
