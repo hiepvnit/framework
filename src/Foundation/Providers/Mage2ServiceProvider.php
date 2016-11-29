@@ -5,7 +5,7 @@ namespace Mage2\Framework\Foundation\Providers;
 use Illuminate\Support\AggregateServiceProvider;
 
 
-class ModuleServiceProvider extends AggregateServiceProvider
+class Mage2ServiceProvider extends AggregateServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -21,7 +21,8 @@ class ModuleServiceProvider extends AggregateServiceProvider
         'Mage2\Framework\Payment\PaymentServiceProvider',
         'Mage2\Framework\Shipping\ShippingServiceProvider',
         'Mage2\Framework\Theme\ThemeServiceProvider',
-        'Mage2\Framework\AdminMenu\AdminMenuServiceProvider'
+        'Mage2\Framework\AdminMenu\AdminMenuServiceProvider',
+        'Mage2\Framework\Module\ModuleServiceProvider'
     ];
 
 }
