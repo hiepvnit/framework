@@ -42,7 +42,8 @@ class Website
         if (Cache::has($cacheKey)) {
             $website = Cache::get($cacheKey);
         } else {
-            $website = WebsiteModel::where('host', '=', $host)->get()->first();
+            $website = WebsiteModel::all()->first();
+            //$website = WebsiteModel::where('host', '=', $host)->get()->first();
             Cache::put($cacheKey, $website, $minute = 100);
         }
 
