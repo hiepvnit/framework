@@ -15,8 +15,9 @@ class FileViewFinder extends LaravelFileViewFinder
     protected function findInPaths($name, $paths)
     {
         $paths = array_reverse($paths);
-        //var_dump($name);
+        //var_dump($paths);
 
+        //die;
 
         foreach ((array) $paths as $path) {
             //var_dump($path);
