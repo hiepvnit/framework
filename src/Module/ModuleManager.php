@@ -6,27 +6,23 @@ use Illuminate\Support\Collection;
 use RecursiveIteratorIterator;
 use Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator;
 
-class ModuleManager
-{
-    public $moduleList;
+class ModuleManager {
+
+    public $systemModuleList;
+    public $communityModuleList;
     public $moduleLoaded = false;
 
-    public function __construct()
-    {
-        $this->moduleList = Collection::make([]);
+    public function __construct() {
+        $this->systemModuleList = Collection::make([]);
+        $this->communityModuleList = Collection::make([]);
     }
 
-    public function all()
-    {
-        if ($this->moduleLoaded === false) {
-           // $this->loadModule();
-        }
-
-        return $this->moduleList;
+    public function all() {
+        $allModules = $this->systemModuleList->merge($this->communityModuleList);
+        return $allModules;
     }
 
-    protected function loadModule()
-    {
+    protected function loadModule() {
         $modulePath = base_path('modules');
 
 
@@ -51,22 +47,29 @@ class ModuleManager
         return $this;
     }
 
-    public function put($identifier, $moduleContainer)
-    {
-
-        $this->moduleList->put($identifier, $moduleContainer);
-
-        return $this;
+    public function put($identifier, $moduleContainer, $type = 'community') {
+        if ($type == 'community') {
+            $this->communityModuleList->put($identifier, $moduleContainer);
+            return $this;
+        }
+        if ($type == 'system') {
+            $this->systemModuleList->put($identifier, $moduleContainer);
+            return $this;
+        }
+        return false;
     }
 
-    public function get($identifier)
-    {
-        return $this->moduleList->pull($identifier);
+    public function get($identifier) {
+        if ($this->systemModuleList->has($identifier)) {
+            return $this->communityModuleList->pull($identifier);
+        }
+        if ($this->communityModuleList->has($identifier)) {
+            return $this->communityModuleList->pull($identifier);
+        }
     }
 
-    public function getByPath($path)
-    {
-        foreach ($this->moduleList as $module =>  $moduleInfo) {
+    public function getByPath($path) {
+        foreach ($this->moduleList as $module => $moduleInfo) {
             $path1 = $this->pathSlashFix($path);
             $path2 = $this->pathSlashFix($moduleInfo['path']);
 
@@ -79,8 +82,8 @@ class ModuleManager
         return $actualModule;
     }
 
-    public function pathSlashFix($path)
-    {
+    public function pathSlashFix($path) {
         return (DIRECTORY_SEPARATOR === '\\') ? str_replace('/', '\\', $path) : str_replace('\\', '/', $path);
     }
+
 }

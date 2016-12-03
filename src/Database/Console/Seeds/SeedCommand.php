@@ -69,20 +69,12 @@ class SeedCommand extends Command {
             $modules = config('module');
 
             foreach ($modules as $nameSpace => $modulePath) {
-                //$migrationFilePath = $modulePath . DIRECTORY_SEPARATOR . 
-                //'database' . DIRECTORY_SEPARATOR . 'migrations';
-                //$this->migrator->path($migrationFilePath);
-
                 $seederClass = str_replace('\\', "", $nameSpace) . "Seeder";
                 
                 $seederClassPath =  $modulePath . DIRECTORY_SEPARATOR . 
                                     'database' . DIRECTORY_SEPARATOR . 'seeds' .DIRECTORY_SEPARATOR  .
                                     str_replace('\\', "", $nameSpace) . "Seeder.php";
-                if($seederClass == "Mage2CatalogSeeder") {
-                    //var_dump($seederClassPath);
-                    //dd($this->fileSystem->exists($seederClassPath));
-                    
-                }
+             
                 
                 if ($this->fileSystem->exists($seederClassPath)) {
                     $this->fileSystem->requireOnce($seederClassPath);
