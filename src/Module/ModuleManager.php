@@ -17,8 +17,16 @@ class ModuleManager {
         $this->communityModuleList = Collection::make([]);
     }
 
-    public function all() {
-        $allModules = $this->systemModuleList->merge($this->communityModuleList);
+    public function all($type = null) {
+        if($type == "system") {
+            return $this->systemModuleList;
+        }
+        if($type == "community") {
+            return $this->communityModuleList;
+        }
+        if ($type == null) {
+            $allModules = $this->systemModuleList->merge($this->communityModuleList);
+        }
         return $allModules;
     }
 
