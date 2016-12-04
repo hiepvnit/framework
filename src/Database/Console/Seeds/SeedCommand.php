@@ -8,6 +8,7 @@ use Illuminate\Console\ConfirmableTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Illuminate\Database\ConnectionResolverInterface as Resolver;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Collection;
 
 class SeedCommand extends Command {
 
@@ -33,6 +34,7 @@ class SeedCommand extends Command {
      * @var \Illuminate\Database\ConnectionResolverInterface
      */
     protected $resolver;
+
     /**
      * The connection resolver instance.
      *
@@ -66,22 +68,65 @@ class SeedCommand extends Command {
         $this->resolver->setDefaultConnection($this->getDatabase());
 
         Model::unguarded(function () {
-            $modules = config('module');
 
-            foreach ($modules as $nameSpace => $modulePath) {
-                $seederClass = str_replace('\\', "", $nameSpace) . "Seeder";
-                
-                $seederClassPath =  $modulePath . DIRECTORY_SEPARATOR . 
-                                    'database' . DIRECTORY_SEPARATOR . 'seeds' .DIRECTORY_SEPARATOR  .
-                                    str_replace('\\', "", $nameSpace) . "Seeder.php";
-             
-                
-                if ($this->fileSystem->exists($seederClassPath)) {
-                    $this->fileSystem->requireOnce($seederClassPath);
-                    $this->getSeeder($seederClass)->run();
+
+            if ($this->input->hasOption('path') && $this->option('path')) {
+                $path = [$this->laravel->basePath() . '/' . $this->option('path')];
+                $file = $this->getSeederFiles($path);
+                foreach ($file as $classname => $filepath) {
+                    if ($this->fileSystem->exists($filepath)) {
+                        $this->fileSystem->requireOnce($filepath);
+                        
+                        $this->getSeeder($classname)->run();
+                    }
+                }
+            } else {
+
+
+                $modules = config('module');
+
+
+                foreach ($modules as $nameSpace => $modulePath) {
+                    $seederClass = str_replace('\\', "", $nameSpace) . "Seeder";
+
+                    $seederClassPath = $modulePath . DIRECTORY_SEPARATOR .
+                            'database' . DIRECTORY_SEPARATOR . 'seeds' . DIRECTORY_SEPARATOR .
+                            str_replace('\\', "", $nameSpace) . "Seeder.php";
+
+
+                    if ($this->fileSystem->exists($seederClassPath)) {
+                        $this->fileSystem->requireOnce($seederClassPath);
+                        $this->getSeeder($seederClass)->run();
+                    }
                 }
             }
         });
+    }
+
+    /**
+     * Get all of the migration files in a given path.
+     *
+     * @param  string|array  $paths
+     * @return array
+     */
+    public function getSeederFiles($paths) {
+        return Collection::make($paths)->flatMap(function ($path) {
+                    return $this->fileSystem->glob($path . '/*.php');
+                })->filter()->sortBy(function ($file) {
+                    return $this->getSeederName($file);
+                })->values()->keyBy(function ($file) {
+                    return $this->getSeederName($file);
+                })->all();
+    }
+
+    /**
+     * Get the name of the migration.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    public function getSeederName($path) {
+        return str_replace('.php', '', basename($path));
     }
 
     /**
@@ -90,7 +135,7 @@ class SeedCommand extends Command {
      * @return \Illuminate\Database\Seeder
      */
     protected function getSeeder($seederClass) {
-        
+
         $class = $this->laravel->make($seederClass);
 
         return $class->setContainer($this->laravel)->setCommand($this);
@@ -115,6 +160,7 @@ class SeedCommand extends Command {
     protected function getOptions() {
         return [
             ['class', null, InputOption::VALUE_OPTIONAL, 'The class name of the root seeder', 'DatabaseSeeder'],
+            ['path', null, InputOption::VALUE_OPTIONAL, 'The path of seeder files to be executed.'],
             ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to seed'],
             ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
         ];
