@@ -45,6 +45,7 @@ class Website
 
         return $next($request);
 
+        /**
         $host = str_replace('http://', '', $request->getUriForPath(''));
         $host = str_replace('https://', '', $host);
 
@@ -73,5 +74,6 @@ class Website
 
 
         return $next($request);
+         */
     }
 }
