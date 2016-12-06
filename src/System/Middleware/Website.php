@@ -32,10 +32,21 @@ class Website
         if (!Schema::hasTable('migrations')) {
             return redirect()->route('mage2.install');
         }
+
+
+        $website = WebsiteModel::all()->first();
+
+        if(!isset($website->id)) {
+            throw new \Exception('There is an error while installtion of app. Please remove database and reinstall again.');
+        }
+        Session::put('website_id', $website->id);
+        Session::put('is_default_website', true);
+        Session::put('default_website_id', $website->id);
+
+        return $next($request);
+
         $host = str_replace('http://', '', $request->getUriForPath(''));
         $host = str_replace('https://', '', $host);
-
-
 
         $cacheKey = 'default_website_middleware_query';
 
