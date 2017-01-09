@@ -28,6 +28,7 @@ class ModuleServiceProvider extends ServiceProvider {
 
         $this->registerModule();
         $this->loadCommunityModule();
+        $this->registerCommands();
 
         $this->app->alias('module', 'Mage2\Framework\Module\ModuleManager');
     }
@@ -114,6 +115,54 @@ class ModuleServiceProvider extends ServiceProvider {
      */
     public function provides() {
         return ['module', 'Mage2\Framework\Module\ModuleManager'];
+    }
+    
+    /**
+     * Register all of the migration commands.
+     *
+     * @return void
+     */
+    protected function registerCommands()
+    {
+        $this->registerModuleInstallCommand();
+        $this->registerModuleUninstallCommand();
+        
+
+        // Once the commands are registered in the application IoC container we will
+        // register them with the Artisan start event so that these are available
+        // when the Artisan application actually starts up and is getting used.
+        $this->commands(
+            'command.migrate.make',
+            'command.migrate'
+            //'command.migrate.install', 'command.migrate.rollback',
+            //'command.migrate.reset', 'command.migrate.refresh',
+            //'command.migrate.status'
+        );
+    }
+    
+    
+    /**
+     * Register the "migrate" migration command.
+     *
+     * @return void
+     */
+    protected function registerModuleInstallCommand()
+    {
+        $this->app->singleton('command.module.install', function ($app) {
+            return new InstallCommand();
+        });
+    }
+
+    /**
+     * Register the "rollback" migration command.
+     *
+     * @return void
+     */
+    protected function registerModuleUninstallCommand()
+    {
+        $this->app->singleton('command.module.uninstall', function ($app) {
+            return new RollbackCommand($app['migrator']);
+        });
     }
 
 }

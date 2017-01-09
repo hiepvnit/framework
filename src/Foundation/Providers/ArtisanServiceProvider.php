@@ -40,6 +40,7 @@ use Illuminate\Foundation\Console\NotificationMakeCommand;
 use Illuminate\Notifications\Console\NotificationTableCommand;
 
 
+use Mage2\Framework\Module\Console\InstallCommand;
 use Mage2\Framework\Foundation\Console\PolicyMakeCommand;
 use Mage2\Framework\Foundation\Console\RequestMakeCommand;
 use Mage2\Framework\Foundation\Console\ModelMakeCommand;
@@ -88,6 +89,7 @@ class ArtisanServiceProvider extends ServiceProvider
         //'AuthMake' => 'command.auth.make',
         //'CacheTable' => 'command.cache.table',
         //'ConsoleMake' => 'command.console.make',
+        'Mage2ModuleInstall' => 'command.mage2.module.install',
         'ControllerMake' => 'command.controller.make',
         //'EventGenerate' => 'command.event.generate',
         //'EventMake' => 'command.event.make',
@@ -257,6 +259,18 @@ class ArtisanServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.console.make', function ($app) {
             return new ConsoleMakeCommand($app['files']);
+        });
+    }
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerMage2ModuleInstallCommand()
+    {
+        
+        $this->app->singleton('command.mage2.module.install', function ($app) {
+            return new InstallCommand($app['migrator'], $app['files']);
         });
     }
 
