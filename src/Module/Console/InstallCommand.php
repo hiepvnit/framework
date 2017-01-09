@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migrator;
 use Symfony\Component\Console\Input\InputOption;
 use Illuminate\Filesystem\Filesystem;
 use Mage2\Framework\Database\Console\Migrations\BaseCommand;
-
+use Mage2\Framework\Module\Facades\Module;
 
 class InstallCommand extends BaseCommand {
 
@@ -34,6 +34,13 @@ class InstallCommand extends BaseCommand {
      */
     protected $migrator;
 
+    /**
+     * The migrator instance.
+     *
+     * @var \Illuminate\Filesystem\Filesystem
+     */
+    protected $fileSystem;
+
   
 
     /**
@@ -52,6 +59,7 @@ class InstallCommand extends BaseCommand {
         parent::__construct($fileSystem);
 
         $this->migrator = $migrator;
+        $this->fileSystem = $fileSystem;
     }
 
     /**
@@ -62,30 +70,31 @@ class InstallCommand extends BaseCommand {
     public function fire() {
        
         $moduleName = trim($this->input->getArgument('modulename'));
-        
-        dd($moduleName);
-        
-        
 
-     
+        $files = $this->getInstallFilePaths($moduleName);
+
+
+        $this->migrator->run($files);
+
+
+
+
+
     }
-
-  
-
     /**
      * Get all of the migration paths.
      *
      * @return array
      */
-    protected function getInstallFilePath($moduleName) {
-      
-       
-        foreach ($modules as $modulePath) {
-            $migrationFilePath = $modulePath . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'migrations';
-            $this->migrator->path($migrationFilePath);
-        }
+    protected function getInstallFilePaths($moduleName) {
+
+        $module =  Module::get($moduleName);
+
+        $file = $module->getPath() . DIRECTORY_SEPARATOR . "database";
+
+        $this->migrator->path($file);
 
         return $this->migrator->paths();
-    }
 
+    }
 }
