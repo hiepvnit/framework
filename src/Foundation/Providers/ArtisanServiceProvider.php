@@ -41,6 +41,7 @@ use Illuminate\Notifications\Console\NotificationTableCommand;
 
 
 use Mage2\Framework\Module\Console\InstallCommand;
+use Mage2\Framework\Module\Console\UninstallCommand;
 use Mage2\Framework\Foundation\Console\PolicyMakeCommand;
 use Mage2\Framework\Foundation\Console\RequestMakeCommand;
 use Mage2\Framework\Foundation\Console\ModelMakeCommand;
@@ -90,6 +91,7 @@ class ArtisanServiceProvider extends ServiceProvider
         //'CacheTable' => 'command.cache.table',
         //'ConsoleMake' => 'command.console.make',
         'Mage2ModuleInstall' => 'command.mage2.module.install',
+        'Mage2ModuleUninstall' => 'command.mage2.module.uninstall',
         'ControllerMake' => 'command.controller.make',
         //'EventGenerate' => 'command.event.generate',
         //'EventMake' => 'command.event.make',
@@ -270,7 +272,19 @@ class ArtisanServiceProvider extends ServiceProvider
     {
         
         $this->app->singleton('command.mage2.module.install', function ($app) {
-            return new InstallCommand($app['migrator'], $app['files']);
+            return new InstallCommand( $app['files']);
+        });
+    }
+    /**
+     * Register the command.
+     *
+     * @return void
+     */
+    protected function registerMage2ModuleUninstallCommand()
+    {
+        
+        $this->app->singleton('command.mage2.module.uninstall', function ($app) {
+            return new UninstallCommand( $app['files']);
         });
     }
 

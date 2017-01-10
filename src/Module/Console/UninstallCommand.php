@@ -16,7 +16,7 @@ class UninstallCommand extends BaseCommand {
      *
      * @var string
      */
-    protected $signature = 'mage2:module:install {modulename}';
+    protected $signature = 'mage2:module:uninstall {modulename}';
 
     /**
      * The console command description.
