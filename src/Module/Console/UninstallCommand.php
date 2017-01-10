@@ -3,11 +3,9 @@
 namespace Mage2\Framework\Module\Console;
 
 use Illuminate\Console\ConfirmableTrait;
-use Illuminate\Database\Migrations\Migrator;
-use Symfony\Component\Console\Input\InputOption;
 use Illuminate\Filesystem\Filesystem;
 use Mage2\Framework\Database\Console\Migrations\BaseCommand;
-
+use Mage2\Framework\Module\Facades\Module;
 
 class UninstallCommand extends BaseCommand {
 
@@ -18,7 +16,7 @@ class UninstallCommand extends BaseCommand {
      *
      * @var string
      */
-    protected $signature = 'mage2:module:uninstall {modulename}';
+    protected $signature = 'mage2:module:install {modulename}';
 
     /**
      * The console command description.
@@ -27,14 +25,13 @@ class UninstallCommand extends BaseCommand {
      */
     protected $description = 'Uninstall the mage2 community Module';
 
+
     /**
      * The migrator instance.
      *
-     * @var \Illuminate\Database\Migrations\Migrator
+     * @var \Illuminate\Filesystem\Filesystem
      */
-    protected $migrator;
-
-  
+    protected $fileSystem;
 
     /**
      * The connection resolver instance.
@@ -48,10 +45,11 @@ class UninstallCommand extends BaseCommand {
      * @param  \Illuminate\Database\Migrations\Migrator  $migrator
      * @return void
      */
-    public function __construct(Migrator $migrator, Filesystem $fileSystem) {
+    public function __construct(Filesystem $fileSystem) {
         parent::__construct($fileSystem);
 
-        $this->migrator = $migrator;
+      
+        $this->fileSystem = $fileSystem;
     }
 
     /**
@@ -60,32 +58,44 @@ class UninstallCommand extends BaseCommand {
      * @return void
      */
     public function fire() {
-       
+
         $moduleName = trim($this->input->getArgument('modulename'));
-        
-        dd($moduleName);
-        
-        
 
-     
+        $file = $this->getInstallFilePaths($moduleName);
+        $this->fileSystem->requireOnce($file);
+
+        $schema = $this->resolve($file);
+
+        $schema->uninstall();
     }
-
-  
 
     /**
      * Get all of the migration paths.
      *
      * @return array
      */
-    protected function getInstallFilePath($moduleName) {
-      
-       
-        foreach ($modules as $modulePath) {
-            $migrationFilePath = $modulePath . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'migrations';
-            $this->migrator->path($migrationFilePath);
-        }
+    protected function getInstallFilePaths($moduleName) {
 
-        return $this->migrator->paths();
+        $module = Module::get($moduleName);
+
+        $namespace = $module->getNameSpace();
+
+        $name = str_replace('\\', "", $namespace) . "Schema";
+
+        $file = $module->getPath() . DIRECTORY_SEPARATOR . "database" . DIRECTORY_SEPARATOR . $name . ".php";
+        return $file;
+    }
+
+    /**
+     * Resolve a migration instance from a file.
+     *
+     * @param  string  $file
+     * @return object
+     */
+    public function resolve($file) {
+        $className = str_replace('.php', '', basename($file));
+
+        return new $className;
     }
 
 }
