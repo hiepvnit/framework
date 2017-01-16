@@ -16,7 +16,7 @@ class InstallCommand extends BaseCommand {
      *
      * @var string
      */
-    protected $signature = 'mage2:module:install {modulename}';
+    protected $signature = 'mage2:module:install {moduleidentifier}';
 
     /**
      * The console command description.
@@ -24,7 +24,6 @@ class InstallCommand extends BaseCommand {
      * @var string
      */
     protected $description = 'Uninstall the mage2 community Module';
-
 
     /**
      * The migrator instance.
@@ -48,7 +47,7 @@ class InstallCommand extends BaseCommand {
     public function __construct(Filesystem $fileSystem) {
         parent::__construct($fileSystem);
 
-      
+
         $this->fileSystem = $fileSystem;
     }
 
@@ -59,14 +58,18 @@ class InstallCommand extends BaseCommand {
      */
     public function fire() {
 
-        $moduleName = trim($this->input->getArgument('modulename'));
+        $moduleIdentifier = trim($this->input->getArgument('moduleidentifier'));
 
-        $file = $this->getInstallFilePaths($moduleName);
-        $this->fileSystem->requireOnce($file);
+        $file = $this->getInstallFilePaths($moduleIdentifier);
+        
+        if ($this->fileSystem->exists($file)) {
+            $this->fileSystem->requireOnce($file);
 
-        $schema = $this->resolve($file);
 
-        $schema->install();
+            $schema = $this->resolve($file);
+
+            $schema->install();
+        }
     }
 
     /**
@@ -74,9 +77,9 @@ class InstallCommand extends BaseCommand {
      *
      * @return array
      */
-    protected function getInstallFilePaths($moduleName) {
+    protected function getInstallFilePaths($moduleIdentifier) {
 
-        $module = Module::get($moduleName);
+        $module = Module::get($moduleIdentifier);
 
         $namespace = $module->getNameSpace();
 

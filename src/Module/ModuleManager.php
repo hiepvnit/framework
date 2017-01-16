@@ -8,13 +8,25 @@ use Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator;
 
 class ModuleManager {
 
+    /**
+     * 
+     * @var \Illuminate\Support\Collection $systemModuleList
+     */
     public $systemModuleList;
+    
+    /**
+     * 
+     * @var \Illuminate\Support\Collection $systemModuleList
+     */
     public $communityModuleList;
+    
     public $moduleLoaded = false;
 
     public function __construct() {
-        $this->systemModuleList = Collection::make([]);
-        $this->communityModuleList = Collection::make([]);
+        
+        $this->systemModuleList     = Collection::make([]);
+        
+        $this->communityModuleList  = Collection::make([]);
     }
 
     public function all($type = null) {
@@ -68,12 +80,21 @@ class ModuleManager {
     }
 
     public function get($identifier) {
+        
         if ($this->systemModuleList->has($identifier)) {
-            return $this->communityModuleList->pull($identifier);
+            return $this->systemModuleList->get($identifier);
         }
         if ($this->communityModuleList->has($identifier)) {
-            return $this->communityModuleList->pull($identifier);
+            return $this->communityModuleList->get($identifier);
         }
+    }
+    
+    public function systemAll() {
+        return $this->systemModuleList;
+    }
+    
+    public function communityAll() {
+        return $this->communityModuleList;
     }
 
     public function getByPath($path) {

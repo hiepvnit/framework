@@ -29,9 +29,9 @@ class Website
      */
     public function handle($request, Closure $next)
     {
-        if (!Schema::hasTable('migrations')) {
-            return redirect()->route('mage2.install');
-        }
+        //if (!Schema::hasTable('migrations')) {
+            //return redirect()->route('mage2.install');
+        //}
 
 
         $website = WebsiteModel::all()->first();
