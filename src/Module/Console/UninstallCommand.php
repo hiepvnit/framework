@@ -16,7 +16,7 @@ class UninstallCommand extends BaseCommand {
      *
      * @var string
      */
-    protected $signature = 'mage2:module:uninstall {modulename}';
+    protected $signature = 'mage2:module:uninstall {moduleidentifier}';
 
     /**
      * The console command description.
@@ -59,9 +59,9 @@ class UninstallCommand extends BaseCommand {
      */
     public function fire() {
 
-        $moduleName = trim($this->input->getArgument('modulename'));
+        $moduleIdentifier = trim($this->input->getArgument('moduleidentifier'));
 
-        $file = $this->getInstallFilePaths($moduleName);
+        $file = $this->getInstallFilePaths($moduleIdentifier);
         $this->fileSystem->requireOnce($file);
 
         $schema = $this->resolve($file);
@@ -74,9 +74,9 @@ class UninstallCommand extends BaseCommand {
      *
      * @return array
      */
-    protected function getInstallFilePaths($moduleName) {
+    protected function getInstallFilePaths($moduleIdentifier) {
 
-        $module = Module::get($moduleName);
+        $module = Module::get($moduleIdentifier);
 
         $namespace = $module->getNameSpace();
 
@@ -97,5 +97,4 @@ class UninstallCommand extends BaseCommand {
 
         return new $className;
     }
-
 }
