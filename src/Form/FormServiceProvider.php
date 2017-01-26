@@ -34,7 +34,8 @@ class FormServiceProvider extends  ServiceProvider {
     {
         $this->app->singleton('form', function ($app) {
             //dd(($app['request']->session()));
-            $form = new FormGenerator($app['files'], $app['url'], $app['request'] ,$app['view'], $app['session.store']->getToken());
+            $form = new FormGenerator($app['files'], $app['url'], $app['request'] ,$app['view'], $app['session.store']->token());
+
             return $form->setSessionStore($app['session.store']);
         });
     }

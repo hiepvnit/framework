@@ -4,7 +4,7 @@ namespace Mage2\Framework\Form;
 
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Session\SessionInterface;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 
@@ -529,11 +529,11 @@ class FormGenerator
     /**
      * Set the session store implementation.
      *
-     * @param  \Illuminate\Session\SessionInterface $session
+     * @param  \Illuminate\Contracts\Session\Session $session
      *
      * @return $this
      */
-    public function setSessionStore(SessionInterface $session)
+    public function setSessionStore(Session $session)
     {
         $this->session = $session;
         return $this;
