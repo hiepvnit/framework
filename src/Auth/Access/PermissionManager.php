@@ -3,7 +3,7 @@ namespace Mage2\Framework\Auth\Access;
 
 use Illuminate\Support\Collection;
 
-class Permission {
+class PermissionManager {
     
     /**
      * Collect all the Permissions from all the modules

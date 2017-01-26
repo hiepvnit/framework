@@ -47,7 +47,8 @@ class Module extends BaseModule {
     public function registerMiddleware() {
 
         $router = $this->app['router'];
-        $router->middleware('website', WebsiteMiddleware::class);
+
+        $router->aliasMiddleware('website', WebsiteMiddleware::class);
     }
 
     /**

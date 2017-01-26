@@ -1,11 +1,8 @@
 <?php
+namespace Mage2\Framework\Auth\Facades;
 
-namespace Mage2\Framework\Support\Facades;
 use Illuminate\Support\Facades\Facade;
 
-/**
- * @see \Illuminate\Contracts\Auth\Access\Gate
- */
 class Permission extends Facade
 {
     /**
@@ -15,6 +12,6 @@ class Permission extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'Mage2\Framework\Auth\Access\Permission';
+        return 'Mage2\Framework\Auth\Access\PermissionManager';
     }
 }

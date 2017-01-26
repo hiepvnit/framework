@@ -15,14 +15,16 @@ class Mage2ServiceProvider extends AggregateServiceProvider
     protected $defer = true;
 
     protected $providers = [
-        'Mage2\Framework\Form\FormServiceProvider',
-        'Mage2\Framework\Configuration\ConfigurationServiceProvider',
-        'Mage2\Framework\DataGrid\DataGridServiceProvider',
-        'Mage2\Framework\Payment\PaymentServiceProvider',
-        'Mage2\Framework\Shipping\ShippingServiceProvider',
-        'Mage2\Framework\Theme\ThemeServiceProvider',
-        'Mage2\Framework\AdminMenu\AdminMenuServiceProvider',
-        'Mage2\Framework\Module\ModuleServiceProvider'
+        \Mage2\Framework\Auth\AuthServiceProvider::class,
+        \Mage2\Framework\Form\FormServiceProvider::class,
+        \Mage2\Framework\Configuration\ConfigurationServiceProvider::class,
+        \Mage2\Framework\DataGrid\DataGridServiceProvider::class,
+        \Mage2\Framework\Payment\PaymentServiceProvider::class,
+        \Mage2\Framework\Shipping\ShippingServiceProvider::class,
+        \Mage2\Framework\Theme\ThemeServiceProvider::class,
+        \Mage2\Framework\AdminMenu\AdminMenuServiceProvider::class,
+        \Mage2\Framework\Module\ModuleServiceProvider::class,
+
     ];
 
 }

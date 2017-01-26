@@ -19,14 +19,7 @@ class ConsoleServiceProvider extends LaravelConsoleServiceProvider
      * @var array
      */
     protected $providers = [
-        'Illuminate\Foundation\Providers\ArtisanServiceProvider',
-        'Illuminate\Console\ScheduleServiceProvider',
-        'Illuminate\Database\MigrationServiceProvider',
-        'Illuminate\Database\SeedServiceProvider',
         'Mage2\Framework\Foundation\Providers\ArtisanServiceProvider',
-
-        'Illuminate\Foundation\Providers\ComposerServiceProvider',
-        'Illuminate\Queue\ConsoleServiceProvider',
         'Mage2\Framework\Database\MigrationServiceProvider',
         'Mage2\Framework\Database\SeedServiceProvider',
     ];

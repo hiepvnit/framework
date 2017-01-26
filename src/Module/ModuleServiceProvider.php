@@ -1,5 +1,4 @@
 <?php
-
 namespace Mage2\Framework\Module;
 
 use Composer\Autoload\ClassLoader;
