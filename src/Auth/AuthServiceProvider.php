@@ -31,7 +31,7 @@ class AuthServiceProvider extends  ServiceProvider {
      */
     protected function registerPermission()
     {
-        $this->app->singleton(PermissionManager::class, function ($app) {
+        $this->app->singleton('permission', function ($app) {
             new PermissionManager();
         });
     }
