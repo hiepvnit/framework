@@ -2,7 +2,7 @@
 
 namespace Mage2\Framework\Configuration;
 
-class AdminConfiguration
+class ConfigurationManager
 {
     protected $adminConfiguration;
 

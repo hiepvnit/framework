@@ -11,14 +11,14 @@ class BaseModel extends Model
     {
         $model = new static();
 
-        $cacheKey = get_class($model) . "_" . $id;
-        if (Cache::has($cacheKey)) {
-            return Cache::get($cacheKey);
-        }
+        //$cacheKey = get_class($model) . "_" . $id;
+        //if (Cache::has($cacheKey)) {
+        //    return Cache::get($cacheKey);
+        //}
 
         try {
             $row = call_user_func_array([static::query(), 'findorfail'], [$id, $columns]);
-            Cache::put($cacheKey, $row, $minute = 100);
+        //    Cache::put($cacheKey, $row, $minute = 100);
             return $row;
         } catch (ModelNotFoundException $e) {
             throw with(new TenantModelNotFoundException())->setModel(get_called_class());
@@ -70,31 +70,34 @@ class BaseModel extends Model
     {
         $model = new static();
 
-        $cacheKey = get_class($model) . "_paginate" ;
-        if (Cache::has($cacheKey)) {
-            return Cache::get($cacheKey);
-        }
+        //$cacheKey = get_class($model) . "_paginate" ;
+        //if (Cache::has($cacheKey)) {
+        //    return Cache::get($cacheKey);
+        //}
         $rows = call_user_func_array([static::query(), 'paginate'], [$perPage , $columns, $pageName , $page]);
 
-        Cache::put($cacheKey, $rows, $minute = 100);
+        //Cache::put($cacheKey, $rows, $minute = 100);
         return $rows;
 
     }
 
     public static function create(array $attributes = [])
     {
-        $model = new static;
-        $model->forgetCommonQueryCache();
+        //$model = new static;
+        //$model->forgetCommonQueryCache();
 
-        return parent::create($attributes);
+
+        $row = call_user_func_array([static::query(), 'create'], [$attributes]);
+
+        return $row;
     }
 
 
     public function update(array $attributes = [], array $options = [])
     {
-        $cacheKey = get_class($this) . "_" . $this->attributes['id'];
-        Cache::forget($cacheKey);
-        $this->forgetCommonQueryCache();
+        //$cacheKey = get_class($this) . "_" . $this->attributes['id'];
+        //Cache::forget($cacheKey);
+        //$this->forgetCommonQueryCache();
 
         return parent::update($attributes, $options);
     }
@@ -102,21 +105,21 @@ class BaseModel extends Model
 
     public function delete() {
 
-        $cacheKey = get_class($this) . "_" . $this->attributes['id'];
-        Cache::forget($cacheKey);
+        //$cacheKey = get_class($this) . "_" . $this->attributes['id'];
+        //Cache::forget($cacheKey);
 
-        $this->forgetCommonQueryCache();
+        //$this->forgetCommonQueryCache();
         return parent::delete();
     }
 
     public function forgetCommonQueryCache() {
 
-        $cacheKey = get_class($this) . "_all";
-        Cache::forget($cacheKey);
+        //$cacheKey = get_class($this) . "_all";
+        //Cache::forget($cacheKey);
 
 
-        $cacheKey = get_class($this) . "_paginate";
-        Cache::forget($cacheKey);
+        //$cacheKey = get_class($this) . "_paginate";
+        //Cache::forget($cacheKey);
 
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Mage2\Framework\DataGrid\Columns\TextColumn;
 use Mage2\Framework\DataGrid\Columns\LinkColumn;
 
-class DataGrid
+class DataGridManager
 {
     
     /**

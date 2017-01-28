@@ -3,7 +3,7 @@
 namespace Mage2\Framework\DataGrid;
 
 use Illuminate\Support\ServiceProvider;
-use Mage2\Framework\DataGrid\DataGrid;
+use Mage2\Framework\DataGrid\DataGridManager;
 
 class DataGridServiceProvider extends ServiceProvider {
 
@@ -23,7 +23,7 @@ class DataGridServiceProvider extends ServiceProvider {
 
         $this->registerDataGrid();
         $this->registerViewPath();
-        $this->app->alias('datagrid', 'Mage2\Framework\DataGrid\DataGrid');
+        $this->app->alias('datagrid', 'Mage2\Framework\DataGrid\DataGridManager');
     }
 
     /**
@@ -33,7 +33,7 @@ class DataGridServiceProvider extends ServiceProvider {
      */
     protected function registerDataGrid() {
         $this->app->singleton('datagrid', function ($app) {
-            return new DataGrid();
+            return new DataGridManager();
         });
     }
 
@@ -43,7 +43,7 @@ class DataGridServiceProvider extends ServiceProvider {
      * @return array
      */
     public function provides() {
-        return [ 'datagrid', 'Mage2\Framework\DataGrid\DataGrid'];
+        return [ 'datagrid', 'Mage2\Framework\DataGrid\DataGridManager'];
     }
 
     /**

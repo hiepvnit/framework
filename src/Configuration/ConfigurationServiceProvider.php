@@ -1,7 +1,7 @@
 <?php
 namespace Mage2\Framework\Configuration;
 
-use Mage2\Framework\Configuration\AdminConfiguration;
+use Mage2\Framework\Configuration\ConfigurationManager;
 use Illuminate\Support\ServiceProvider;
 
 class ConfigurationServiceProvider extends ServiceProvider {
@@ -20,8 +20,7 @@ class ConfigurationServiceProvider extends ServiceProvider {
     public function register()
     {
         $this->registerAdminConfiguration();
-
-        $this->app->alias('adminconfiguration', 'Mage2\Framework\Configuration\AdminConfiguration');
+        $this->app->alias('adminconfiguration', 'Mage2\Framework\Configuration\ConfigurationManager');
     }
     /**
      * Register the AdmainConfiguration instance.
@@ -31,7 +30,7 @@ class ConfigurationServiceProvider extends ServiceProvider {
     protected function registerAdminConfiguration()
     {
         $this->app->singleton('adminconfiguration', function ($app) {
-            return new AdminConfiguration();
+            return new ConfigurationManager();
         });
     }
 
@@ -42,6 +41,6 @@ class ConfigurationServiceProvider extends ServiceProvider {
      */
     public function provides()
     {
-        return ['adminconfiguration', 'Mage2\Framework\Configuration\AdminConfiguration'];
+        return ['adminconfiguration', 'Mage2\Framework\Configuration\ConfigurationManager'];
     }
 }
