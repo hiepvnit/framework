@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
 use Mage2\Install\Models\Website as WebsiteModel;
-use App;
 
 
 class Website
@@ -35,7 +34,6 @@ class Website
         //if (!Schema::hasTable('migrations')) {
             //return redirect()->route('mage2.install');
         //}
-
 
         $website = WebsiteModel::all()->first();
 
