@@ -16,11 +16,6 @@ class Controller extends BaseController
     use AuthorizesRequests,
         DispatchesJobs,
         ValidatesRequests;
-
-    public $websiteId;
-    public $defaultWebsiteId;
-    public $isDefaultWebsite;
-
     //public $theme;
 
     public function __construct()
@@ -29,12 +24,6 @@ class Controller extends BaseController
             $path = realpath(Configuration::getConfiguration('active_theme_path'));
             View::addLocation($path);
         }
-        $this->middleware(function ($request, $next) {
-            $this->websiteId = Session::get('website_id');
-            $this->defaultWebsiteId = Session::get('default_website_id');
-            $this->isDefaultWebsite = Session::get('is_default_website');
 
-            return $next($request);
-        });
     }
 }

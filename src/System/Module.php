@@ -2,7 +2,6 @@
 
 namespace Mage2\Framework\System;
 
-use Mage2\Framework\System\Middleware\Website as WebsiteMiddleware;
 use Mage2\Framework\System\View\FileViewFinder;
 use Illuminate\View\ViewServiceProvider as BaseModule;
 
@@ -36,20 +35,11 @@ class Module extends BaseModule {
 
             return new FileViewFinder($app['files'], $paths);
         });
-        $this->registerMiddleware();
+
     }
 
-    /**
-     * Register the middleware for the mage2 auth modules.
-     *
-     * @return void
-     */
-    public function registerMiddleware() {
 
-        $router = $this->app['router'];
 
-        $router->aliasMiddleware('website', WebsiteMiddleware::class);
-    }
 
     /**
      * Get the URL generator request rebinder.
