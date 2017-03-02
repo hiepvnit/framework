@@ -439,7 +439,7 @@ class FormGenerator
      * @param  string $buttonText
      * @return $stub
      */
-    public function button($buttonText = "Save", $attributes = [])
+    public function button($buttonText = "Save", $attributes = ['class' => 'btn'])
     {
         $stub = $this->files->get($this->getStub('button'));
 

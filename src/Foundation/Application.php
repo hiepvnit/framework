@@ -25,8 +25,21 @@ class Application  extends LaravelApplication{
     {
         return $this->basePath.DIRECTORY_SEPARATOR.'modules' . DIRECTORY_SEPARATOR . "base";
     }
+
+
+    /**
+     * Get the path to the language files.
+     *
+     * @return string
+     */
+    public function langPath()
+    {
+        return $this->baseModulePath().DIRECTORY_SEPARATOR.'System'. DIRECTORY_SEPARATOR. "views" . DIRECTORY_SEPARATOR . "lang";
+    }
+
+
     
-       /**
+    /**
      * Bind all of the application paths in the container.
      *
      * @return void
