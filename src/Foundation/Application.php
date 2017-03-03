@@ -34,11 +34,11 @@ class Application  extends LaravelApplication{
      */
     public function langPath()
     {
-        return $this->baseModulePath().DIRECTORY_SEPARATOR.'System'. DIRECTORY_SEPARATOR. "views" . DIRECTORY_SEPARATOR . "lang";
+        return $this->baseModulePath().DIRECTORY_SEPARATOR. "Mage2" .DIRECTORY_SEPARATOR .'System'. DIRECTORY_SEPARATOR. "views" . DIRECTORY_SEPARATOR . "lang";
     }
 
 
-    
+
     /**
      * Bind all of the application paths in the container.
      *
