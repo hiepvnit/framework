@@ -33,7 +33,9 @@ class DataGridServiceProvider extends ServiceProvider {
      */
     protected function registerDataGrid() {
         $this->app->singleton('datagrid', function ($app) {
-            return new DataGridManager();
+
+            $request  = $app->request;
+            return new DataGridManager($request);
         });
     }
 

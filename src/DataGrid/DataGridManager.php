@@ -1,6 +1,8 @@
 <?php
 namespace Mage2\Framework\DataGrid;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Mage2\Framework\DataGrid\Columns\TextColumn;
@@ -8,6 +10,16 @@ use Mage2\Framework\DataGrid\Columns\LinkColumn;
 
 class DataGridManager
 {
+
+    /**
+     * Database table model
+     *
+     * @var \Illuminate\Http\Request
+     */
+
+    public $request;
+
+
     
     /**
      * Database table model
@@ -34,6 +46,34 @@ class DataGridManager
      */
     protected $paginate = 10;
 
+    public function __construct(Request $request) {
+        $this->request = $request;
+    }
+
+    public function dataTableData($model) {
+
+        $count = $model->all()->count();
+
+        $columns = $this->request->get('columns');
+        $orders = $this->request->get('order');
+
+        $order = $orders[0];
+
+        $records = $model->orderBy($columns[$order['column']]['name'], $order['dir'])->get();
+
+
+
+        $data = [
+                "data" => $records,
+                "draw" =>  $this->request->get('draw'),
+                "recordsTotal"=> $count,
+                "recordsFiltered" => $count
+                ];
+
+        return JsonResponse::create($data);
+
+
+    }
 
     /**
      * 
