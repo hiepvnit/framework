@@ -11,7 +11,7 @@ class Application  extends LaravelApplication{
      *
      * @return string
      */
-    public function bootstrapPath()
+    public function bootstrapPath($path = '')
     {
         return $this->basePath.DIRECTORY_SEPARATOR.'storage' . DIRECTORY_SEPARATOR . "framework" . DIRECTORY_SEPARATOR. "bootstrap";
     }
