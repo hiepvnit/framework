@@ -7,6 +7,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class FormGenerator
 {
@@ -253,12 +254,18 @@ class FormGenerator
      * @param  array $attributes
      * @return $stub
      */
-    public function text($fieldName, $label = "", $attributes = [])
+    public function text($fieldName, $label = "", $attributes = ['class' => 'form-control'])
     {
+
+        $attributes = Collection::make($attributes);
+        ///dd($attributes);
+        $attributes->put('name', $fieldName);
+        $attributes->put('id', $fieldName);
+
 
         $stub = $this->files->get($this->getStub('text'));
 
-        $this->replaceStubText($stub, "DUMMYFIELDNAME", $fieldName);
+        //$this->replaceStubText($stub, "DUMMYFIELDNAME", $fieldName);
         $this->replaceStubText($stub, "DUMMYLABEL", $label);
 
         $this->setAttributeTextOfStub($stub, $attributes);
@@ -326,12 +333,14 @@ class FormGenerator
      * @param  array $attributes
      * @return $stub
      */
-    public function password($fieldName, $label = "", $attributes = [])
+    public function password($fieldName, $label = "", $attributes = ['class' => 'form-control'])
     {
+        $attributes = Collection::make($attributes);
+        $attributes->put('name', $fieldName);
+        $attributes->put('id', $fieldName);
 
         $stub = $this->files->get($this->getStub('password'));
 
-        $this->replaceStubText($stub, "DUMMYFIELDNAME", $fieldName);
         $this->replaceStubText($stub, "DUMMYLABEL", $label);
 
         $this->setAttributeTextOfStub($stub, $attributes);
@@ -421,8 +430,9 @@ class FormGenerator
      * @param  string $buttonText
      * @return $stub
      */
-    public function submit($buttonText = "Save", $attributes = [])
+    public function submit($buttonText = "Save", $attributes = ['class' => 'btn btn-primary'])
     {
+        $attributes = Collection::make($attributes);
         $stub = $this->files->get($this->getStub('submit'));
 
         $this->replaceStubText($stub, "DUMMYBUTTONTEXT", $buttonText);
@@ -439,8 +449,9 @@ class FormGenerator
      * @param  string $buttonText
      * @return $stub
      */
-    public function button($buttonText = "Save", $attributes = ['class' => 'btn'])
+    public function button($buttonText = "Save", $attributes = ['class' => 'btn btn-primary'])
     {
+        $attributes = Collection::make($attributes);
         $stub = $this->files->get($this->getStub('button'));
 
         $this->replaceStubText($stub, "DUMMYBUTTONTEXT", $buttonText);
@@ -491,12 +502,19 @@ class FormGenerator
      * @param  string $buttonText
      * @return $stub
      */
-    public function getAttributeText($attributes = ['class' => 'form-group'])
+    public function getAttributeText($attributes = [])
     {
         $attributeText = "";
         unset($attributes['value']);
+
         foreach ($attributes as $attKey => $attVal) {
-            $attributeText .= $attKey . "='" . $attVal . "' ";
+            if($attVal === true  ) {
+                $attributeText .= $attKey . " ";
+            } elseif($attVal === false ) {
+                $attributeText .= " ";
+            } else {
+                $attributeText .= $attKey . "='" . $attVal . "' ";
+            }
         }
 
         return $attributeText;

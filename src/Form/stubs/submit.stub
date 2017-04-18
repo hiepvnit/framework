@@ -1,1 +1,1 @@
- <button type="submit" class="btn btn-primary">DUMMYBUTTONTEXT</button>
+ <button type="submit" DUMMYATTRIBUTES>DUMMYBUTTONTEXT</button>
