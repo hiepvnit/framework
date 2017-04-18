@@ -12,7 +12,7 @@ class DataGridServiceProvider extends ServiceProvider {
      *
      * @var bool
      */
-    //protected $defer = true;
+    protected $defer = true;
 
     /**
      * Register the service provider.

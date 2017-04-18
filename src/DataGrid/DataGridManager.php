@@ -59,12 +59,17 @@ class DataGridManager
 
         $order = $orders[0];
 
-        $records = $model->orderBy($columns[$order['column']]['name'], $order['dir'])->get();
+        $records = $model->orderBy($columns[$order['column']]['name'], $order['dir']);
 
+        $noOfRecord = $this->request->get('length');
+        $noOfSkipRecord = $this->request->get('start');
+
+
+        $records->skip($noOfSkipRecord)->take($noOfRecord);
 
 
         $data = [
-                "data" => $records,
+                "data" => $records->get(),
                 "draw" =>  $this->request->get('draw'),
                 "recordsTotal"=> $count,
                 "recordsFiltered" => $count
