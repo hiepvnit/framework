@@ -106,44 +106,36 @@ class FormGenerator
      */
     public function open($attributes = [])
     {
+        $attributes = Collection::make($attributes);
         $stub = $this->files->get($this->getStub('form-open'));
         $formOpenAttribute = NULL;
 
-        if (isset($attributes['files']) && $attributes['files'] == true) {
-            $formOpenAttribute ['enctype'] = 'multipart/form-data';
+        if ($attributes->has('files')) {
+            //$formOpenAttribute ['enctype'] = 'multipart/form-data';
+            $attributes->pull('files');
+            $attributes->put('enctype', 'multipart/form-data');
             //$this->replaceStubText($stub, strtoupper("DUMMYATTRIBUTE"), "=''");
-        } elseif (isset($attributes['id'])) {
-            $formOpenAttribute ['id'] = $attributes['id'];
-        } else {
-            $this->replaceStubText($stub, strtoupper("dummyattribute"), "");
         }
+
         foreach ($attributes as $dummyText => $replacement) {
 
             if (strtolower($dummyText) == "method") {
 
-                if (strtolower($replacement) == "get" || strtolower($replacement) == "post") {
+                if (strtolower($replacement) == "put" || strtolower($replacement) == "delete") {
 
-                    $this->replaceStubText($stub, strtoupper("DUMMY" . $dummyText), strtoupper($replacement));
-
-                    $this->replaceStubText($stub, strtoupper("DUMMYHIDDENMETHOD"), "");
-                } else {
+                    $attributes->put('method','post');
                     $this->replaceStubText($stub, strtoupper("DUMMY" . $dummyText), "POST");
                     $dummyHiddenStub = $this->files->get($this->getStub('_method'));
-
                     $this->replaceStubText($dummyHiddenStub, strtoupper("DUMMYMETHOD"), strtoupper($replacement));
                     $stub .= $dummyHiddenStub;
                 }
-            } else {
-
-                $this->replaceStubText($stub, strtoupper("DUMMY" . $dummyText), $replacement);
             }
         }
 
-
-        if (NULL !== $formOpenAttribute) {
-            $attributeText = $this->getAttributeText($formOpenAttribute);
+        //if (NULL !== $formOpenAttribute) {
+            $attributeText = $this->getAttributeText($attributes);
             $this->replaceStubText($stub, strtoupper("DUMMYATTRIBUTE"), $attributeText);
-        }
+        //}
         $csrfStub = $this->files->get($this->getStub('_csrf'));
         $this->replaceStubText($csrfStub, "DUMMYCSRF", $this->csrfToken);
 
@@ -177,7 +169,11 @@ class FormGenerator
     public function textarea($fieldName, $label = "", $attributes = ['class' => 'form-control'])
     {
 
+        $attributes = Collection::make($attributes);
         $stub = $this->files->get($this->getStub('textarea'));
+
+        $attributes->put('name', $fieldName);
+        $attributes->put('id', $fieldName);
 
         $this->replaceStubText($stub, "DUMMYFIELDNAME", $fieldName);
         $this->replaceStubText($stub, "DUMMYLABEL", $label);
@@ -258,14 +254,13 @@ class FormGenerator
     {
 
         $attributes = Collection::make($attributes);
-        ///dd($attributes);
         $attributes->put('name', $fieldName);
         $attributes->put('id', $fieldName);
 
 
         $stub = $this->files->get($this->getStub('text'));
 
-        //$this->replaceStubText($stub, "DUMMYFIELDNAME", $fieldName);
+        $this->replaceStubText($stub, "DUMMYFIELDNAME", $fieldName);
         $this->replaceStubText($stub, "DUMMYLABEL", $label);
 
         $this->setAttributeTextOfStub($stub, $attributes);
