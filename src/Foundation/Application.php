@@ -37,6 +37,19 @@ class Application  extends LaravelApplication{
         return $this->baseModulePath().DIRECTORY_SEPARATOR. "Mage2" .DIRECTORY_SEPARATOR .'System'. DIRECTORY_SEPARATOR. "views" . DIRECTORY_SEPARATOR . "lang";
     }
 
+    /**
+     * Get the path to the application configuration files.
+     *
+     * @param string $path Optionally, a path to append to the config path
+     * @return string
+     */
+    public function configPath($path = '')
+    {
+        $baseSystemModulePath = $this->baseModulePath() . DIRECTORY_SEPARATOR . "Mage2" . DIRECTORY_SEPARATOR ."System";
+
+        return $baseSystemModulePath.DIRECTORY_SEPARATOR.'config'.($path ? DIRECTORY_SEPARATOR.$path : $path);
+    }
+
 
 
     /**
