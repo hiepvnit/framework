@@ -9,17 +9,30 @@ class ImageService extends ImageManager
 
     public $image = NULL;
 
-    public function upload($image, $path = null, $size = null, $keepAspectRation = true)
+    public function upload($image, $path = null, $keepAspectRation = true)
     {
-
-
         $this->image = parent::make($image);
-        $this->setSize($size);
         $this->directory(public_path($path));
+
+        //$this->setSize($size);
         $name = $image->getClientOriginalName();
 
         $fullPath = public_path($path) . DIRECTORY_SEPARATOR . $name;
         $this->image->save($fullPath);
+
+
+        $sizes = config('image.sizes');
+
+        foreach($sizes as $sizeName => $widthHeight) {
+
+            list($width, $height) = $widthHeight;
+
+            $image = parent::make($fullPath);
+            $image->fit($width, $height);
+
+            $sizePath = $image->dirname . DIRECTORY_SEPARATOR . $sizeName .  "-" .$image->basename;
+            $image->save( $sizePath);
+        }
 
         $localImage = new LocalImageFile($path . DIRECTORY_SEPARATOR . $name);
 
@@ -32,27 +45,6 @@ class ImageService extends ImageManager
             File::makeDirectory($path, '0777', true);
         }
         return $this;
-    }
-
-    public function setSize($size)
-    {
-        if (null === $size) {
-            return $this;
-        }
-
-        if (!is_array($size) && is_string($size)) {
-            $sizePixel = config('image.sizes.' .$size);
-
-            $this->image->resize($sizePixel, null, function ($constrain) {
-                $constrain->aspectRatio();
-            });
-            return $this;
-        }
-
-        //if array save INTERGER SIZE
-
-        //if array save multiple here
-
     }
 }
 
