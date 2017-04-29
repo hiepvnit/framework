@@ -3,6 +3,7 @@
 namespace Mage2\Framework\Foundation\Providers;
 
 use Illuminate\Support\AggregateServiceProvider;
+use Mage2\Framework\Image\ImageServiceProvider;
 
 
 class Mage2ServiceProvider extends AggregateServiceProvider
@@ -24,7 +25,7 @@ class Mage2ServiceProvider extends AggregateServiceProvider
         \Mage2\Framework\Theme\ThemeServiceProvider::class,
         \Mage2\Framework\AdminMenu\AdminMenuServiceProvider::class,
         \Mage2\Framework\Module\ModuleServiceProvider::class,
-        \Mage2\Framework\Image\ImageServiceProvider::class,
+        ImageServiceProvider::class,
     ];
 
 }

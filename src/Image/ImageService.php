@@ -1,58 +1,58 @@
 <?php
-
 namespace Mage2\Framework\Image;
 
-use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\ImageManager;
 
-class ImageService
+class ImageService extends ImageManager
 {
 
+    public $image = NULL;
 
-    protected $image = NULL;
+    public function upload($image, $path = null, $size = null, $keepAspectRation = true)
+    {
 
 
-    public function make($relativePath = "") {
-        dd($relativePath);
+        $this->image = parent::make($image);
+        $this->setSize($size);
+        $this->directory(public_path($path));
+        $name = $image->getClientOriginalName();
+
+        $fullPath = public_path($path) . DIRECTORY_SEPARATOR . $name;
+        $this->image->save($fullPath);
+
+        $localImage = new LocalImageFile($path . DIRECTORY_SEPARATOR . $name);
+
+        return $localImage;
     }
 
-    public function upload(UploadedFile $image, $type="catalog") {
-
-
-        $destinationPath = 'uploads/';
-        $relativePath = implode('/', str_split(strtolower(str_random(3)))) . '/';
-        $image->move($destinationPath . $relativePath, $image->getClientOriginalName());
-
-
-        $relativePath = $relativePath . $image->getClientOriginalName();
-
-        $localImage = new LocalImageFile($relativePath, $type);
-
-        $this->image = $localImage;
-
-
+    public function directory($path)
+    {
+        if (!File::exists($path)) {
+            File::makeDirectory($path, '0777', true);
+        }
         return $this;
     }
 
-
-
-    /**
-     * Dynamically retrieve attributes on the model.
-     *
-     * @param  string  $key
-     * @return mixed
-     */
-    public function __get($key)
+    public function setSize($size)
     {
-        if($this->image->$key) {
-            return $this->image->$key;
+        if (null === $size) {
+            return $this;
         }
 
-        if($key = "url") {
-            return $this->image->url();
+        if (!is_array($size) && is_string($size)) {
+            $sizePixel = config('image.sizes.' .$size);
+
+            $this->image->resize($sizePixel, null, function ($constrain) {
+                $constrain->aspectRatio();
+            });
+            return $this;
         }
 
+        //if array save INTERGER SIZE
 
-        return null;
+        //if array save multiple here
+
     }
 }
 
