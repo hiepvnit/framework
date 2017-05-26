@@ -2,8 +2,6 @@
 
 namespace Mage2\Framework\Image;
 
-
-
 class LocalImageFile {
 
 

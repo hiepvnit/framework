@@ -19,13 +19,6 @@ class AdminMenuBuilder
             $item = $this->adminMenu->get($menuKey);
             $mergeMenuItems = array_merge_recursive($item, $adminMenu);
 
-            if($menuKey == 'mage2-catalog') {
-                //var_dump($adminMenu);
-                //var_dump($item);
-                //var_dump($adminMenu);
-                //dd($mergeMenuItems);
-                //dd($this->adminMenu);
-            }
             $this->adminMenu->put($menuKey, $mergeMenuItems);
         } else {
             $this->adminMenu->put($menuKey, $adminMenu);
@@ -34,7 +27,6 @@ class AdminMenuBuilder
 
     public function getMenuItems()
     {
-        //dd($this->adminMenu);
         return $this->adminMenu->all();
     }
 }

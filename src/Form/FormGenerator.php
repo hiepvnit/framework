@@ -243,8 +243,6 @@ class FormGenerator
     /**
      * get the text field using stub template
      *
-     * @todo add attribute feature and etc
-     *
      * @param  string $fieldName
      * @param  string $label
      * @param  array $attributes
@@ -254,8 +252,12 @@ class FormGenerator
     {
 
         $attributes = Collection::make($attributes);
-        $attributes->put('name', $fieldName);
-        $attributes->put('id', $fieldName);
+        if(! $attributes->has('name')) {
+            $attributes->put('name', $fieldName);
+        }
+        if(! $attributes->has('id')) {
+            $attributes->put('id', $fieldName);
+        }
 
 
         $stub = $this->files->get($this->getStub('text'));
