@@ -2,11 +2,13 @@
 namespace Mage2\Framework\Module;
 
 use Composer\Autoload\ClassLoader;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\App;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 use RecursiveIteratorIterator;
 use Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator;
+use Symfony\Component\Yaml\Yaml;
 
 class ModuleServiceProvider extends ServiceProvider {
 
@@ -91,13 +93,23 @@ class ModuleServiceProvider extends ServiceProvider {
                 $loader = new ClassLoader();
 
 
-                $loader->addPsr4($namespace, $providerDirName);
-                $loader->register();
+                $configYamlPath = $providerDirName . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR. "module.yaml";
 
-                
-                $providerClassName = $companyName. "\\" . $moduleName . "\\" ."Module";
-                $this->app->register($providerClassName);
-               
+                $yamlContent = Yaml::parse(File::get($configYamlPath));
+
+                if(true == $yamlContent['enable']) {
+
+
+                    $loader->addPsr4($namespace, $providerDirName);
+                    $loader->register();
+
+
+                    $providerClassName = $companyName. "\\" . $moduleName . "\\" ."Module";
+                    $this->app->register($providerClassName);
+
+                }
+
+
             }
             $iterator->next();
         }
