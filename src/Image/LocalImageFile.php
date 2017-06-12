@@ -2,6 +2,8 @@
 
 namespace Mage2\Framework\Image;
 
+use Illuminate\Support\Facades\File;
+
 class LocalImageFile {
 
 
@@ -23,13 +25,28 @@ class LocalImageFile {
             $sizeNamePath = str_replace($baseName, $sizeName. "-" .$baseName , $relativePath) ;
 
             $this->$objectVarName = asset($sizeNamePath);
-
         }
 
     }
 
-    public function baseName(){
 
+    public function destroy(){
+
+        $sizes = config('image.sizes');
+
+        foreach($sizes as $sizeName => $widthHeight) {
+            $baseName = basename($this->relativePath);
+            $sizeNamePath = str_replace($baseName, $sizeName. "-" .$baseName , $this->relativePath) ;
+
+            $path = public_path($sizeNamePath);
+            File::delete($path);
+
+        }
+
+        $path = public_path($this->relativePath);
+        File::delete($path);
+
+        return $this;
     }
 
  }

@@ -46,5 +46,9 @@ class ImageService extends ImageManager
         }
         return $this;
     }
+
+    public function destroy() {
+        dd($this);
+    }
 }
 
