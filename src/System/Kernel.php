@@ -29,6 +29,7 @@ class Kernel extends HttpKernel
             \Mage2\Framework\System\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Mage2\Framework\System\Middleware\VerifyCsrfToken::class,
+            \Mage2\Framework\System\Middleware\PageIndexer::class,
         ],
 
         'api' => [

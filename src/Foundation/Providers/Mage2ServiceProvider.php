@@ -4,6 +4,16 @@ namespace Mage2\Framework\Foundation\Providers;
 
 use Illuminate\Support\AggregateServiceProvider;
 use Mage2\Framework\Image\ImageServiceProvider;
+use Mage2\Framework\Module\ModuleServiceProvider;
+use Mage2\Framework\Search\SearchServiceProvider;
+use Mage2\Framework\AdminMenu\AdminMenuServiceProvider;
+use Mage2\Framework\Theme\ThemeServiceProvider;
+use Mage2\Framework\Shipping\ShippingServiceProvider;
+use Mage2\Framework\Payment\PaymentServiceProvider;
+use Mage2\Framework\DataGrid\DataGridServiceProvider;
+use Mage2\Framework\Configuration\ConfigurationServiceProvider;
+use Mage2\Framework\Form\FormServiceProvider;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider;
 
 
 class Mage2ServiceProvider extends AggregateServiceProvider
@@ -16,15 +26,16 @@ class Mage2ServiceProvider extends AggregateServiceProvider
     protected $defer = true;
 
     protected $providers = [
-        \Mage2\Framework\Auth\AuthServiceProvider::class,
-        \Mage2\Framework\Form\FormServiceProvider::class,
-        \Mage2\Framework\Configuration\ConfigurationServiceProvider::class,
-        \Mage2\Framework\DataGrid\DataGridServiceProvider::class,
-        \Mage2\Framework\Payment\PaymentServiceProvider::class,
-        \Mage2\Framework\Shipping\ShippingServiceProvider::class,
-        \Mage2\Framework\Theme\ThemeServiceProvider::class,
-        \Mage2\Framework\AdminMenu\AdminMenuServiceProvider::class,
-        \Mage2\Framework\Module\ModuleServiceProvider::class,
+        AuthServiceProvider::class,
+        FormServiceProvider::class,
+        ConfigurationServiceProvider::class,
+        DataGridServiceProvider::class,
+        PaymentServiceProvider::class,
+        ShippingServiceProvider::class,
+        ThemeServiceProvider::class,
+        AdminMenuServiceProvider::class,
+        ModuleServiceProvider::class,
+        SearchServiceProvider::class,
         ImageServiceProvider::class,
     ];
 
