@@ -16,6 +16,8 @@ class Kernel extends HttpKernel
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Session\Middleware\StartSession::class,
+
+        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
     ];
 
     /**
@@ -29,11 +31,12 @@ class Kernel extends HttpKernel
             \Mage2\Framework\System\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Mage2\Framework\System\Middleware\VerifyCsrfToken::class,
-            \Mage2\Framework\System\Middleware\PageIndexer::class,
+
         ],
 
         'api' => [
             'throttle:60,1',
+            'bindings',
         ],
     ];
 
@@ -47,7 +50,9 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'adminauth'  => \Mage2\User\Middleware\AdminAuthenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'can'        => \Illuminate\Foundation\Http\Middleware\Authorize::class,
+        'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'install' => \Mage2\Framework\System\Middleware\PageIndexer::class,
     ];
 }

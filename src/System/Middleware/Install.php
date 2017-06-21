@@ -2,10 +2,9 @@
 namespace Mage2\Framework\System\Middleware;
 
 use Closure;
-use Mage2\Framework\Search\Facades\Search;
 use Illuminate\Support\Facades\Storage;
 
-class PageIndexer
+class Install
 {
     /**
      * Handle an incoming request.
@@ -22,10 +21,10 @@ class PageIndexer
         //todo check in middleware
         $installFile = Storage::disk('local')->get('installed.txt');
         if('.installed' != $installFile) {
-
             return redirect()->to('/install');
         }
-        //Search::indexed();
+
+
         return $next($request);
     }
 }
