@@ -16,7 +16,7 @@ class Install
     public function handle($request, Closure $next)
     {
 
-        if(Storage::disk('local')->has('installed.txt')) {
+        if(!Storage::disk('local')->has('installed.txt')) {
             return redirect()->to('/install');
         }
         //todo check in middleware
