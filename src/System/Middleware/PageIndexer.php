@@ -16,15 +16,6 @@ class PageIndexer
      */
     public function handle($request, Closure $next)
     {
-
-
-
-        //todo check in middleware
-        $installFile = Storage::disk('local')->get('installed.txt');
-        if('.installed' != $installFile) {
-
-            return redirect()->to('/install');
-        }
         //Search::indexed();
         return $next($request);
     }

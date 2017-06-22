@@ -53,6 +53,6 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'install' => \Mage2\Framework\System\Middleware\PageIndexer::class,
+        'install' => \Mage2\Framework\System\Middleware\Install::class,
     ];
 }
