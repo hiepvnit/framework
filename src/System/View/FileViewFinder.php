@@ -25,7 +25,6 @@ class FileViewFinder extends LaravelFileViewFinder
             }
         }
 
-
         throw new InvalidArgumentException("View [$name] not found.");
     }
 }

@@ -49,4 +49,8 @@ class LocalImageFile {
         return $this;
     }
 
+    public function getRelativePath() {
+        return str_replace(asset('/'),'', $this->relativePath);
+    }
+
  }
