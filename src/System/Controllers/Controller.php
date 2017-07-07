@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
-use Mage2\System\Models\Configuration;
+use Mage2\Dashboard\Models\Configuration;
 
 class Controller extends BaseController
 {
