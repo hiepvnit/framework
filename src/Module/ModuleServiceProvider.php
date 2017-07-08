@@ -28,7 +28,7 @@ class ModuleServiceProvider extends ServiceProvider {
 
 
         $this->registerModule();
-        $this->loadCommunityModule();
+        //$this->loadCommunityModule();
         $this->registerCommands();
 
         $this->app->alias('module', 'Mage2\Framework\Module\ModuleManager');
