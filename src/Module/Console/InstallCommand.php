@@ -4,10 +4,10 @@ namespace Mage2\Framework\Module\Console;
 
 use Illuminate\Console\ConfirmableTrait;
 use Illuminate\Filesystem\Filesystem;
-use Mage2\Framework\Database\Console\Migrations\BaseCommand;
+use Illuminate\Console\Command;
 use Mage2\Framework\Module\Facades\Module;
 
-class InstallCommand extends BaseCommand {
+class InstallCommand extends Command {
 
     use ConfirmableTrait;
 

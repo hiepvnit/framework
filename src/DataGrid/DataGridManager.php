@@ -19,8 +19,6 @@ class DataGridManager
 
     public $request;
 
-
-    
     /**
      * Database table model
      * 
@@ -105,7 +103,6 @@ class DataGridManager
     
     public function addLink($row = false) {
         dd(is_callable($row));
-        
          //if($row && is_callable($row))
             //return $return($label, $row);
     }
