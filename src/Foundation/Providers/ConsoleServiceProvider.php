@@ -20,7 +20,5 @@ class ConsoleServiceProvider extends LaravelConsoleServiceProvider
      */
     protected $providers = [
         'Mage2\Framework\Foundation\Providers\ArtisanServiceProvider',
-        'Mage2\Framework\Database\MigrationServiceProvider',
-        'Mage2\Framework\Database\SeedServiceProvider',
     ];
 }

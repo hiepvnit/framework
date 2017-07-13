@@ -2,50 +2,8 @@
 
 namespace Mage2\Framework\Foundation\Providers;
 
-use Illuminate\Queue\Console\TableCommand;
-use Illuminate\Auth\Console\MakeAuthCommand;
-use Illuminate\Foundation\Console\UpCommand;
-use Illuminate\Foundation\Console\DownCommand;
-use Illuminate\Auth\Console\ClearResetsCommand;
-use Illuminate\Foundation\Console\ServeCommand;
-use Illuminate\Cache\Console\CacheTableCommand;
-use Illuminate\Queue\Console\FailedTableCommand;
-use Illuminate\Foundation\Console\TinkerCommand;
-use Illuminate\Foundation\Console\JobMakeCommand;
-use Illuminate\Foundation\Console\AppNameCommand;
-use Illuminate\Foundation\Console\OptimizeCommand;
-use Illuminate\Foundation\Console\TestMakeCommand;
-use Illuminate\Foundation\Console\MailMakeCommand;
-use Illuminate\Foundation\Console\RouteListCommand;
-use Illuminate\Foundation\Console\EventMakeCommand;
-
-use Illuminate\Foundation\Console\ViewClearCommand;
-use Illuminate\Session\Console\SessionTableCommand;
-use Illuminate\Foundation\Console\RouteCacheCommand;
-use Illuminate\Foundation\Console\RouteClearCommand;
-use Illuminate\Foundation\Console\StorageLinkCommand;
-use Illuminate\Routing\Console\MiddlewareMakeCommand;
-use Illuminate\Foundation\Console\ConfigCacheCommand;
-use Illuminate\Foundation\Console\ConfigClearCommand;
-use Illuminate\Foundation\Console\ConsoleMakeCommand;
-use Illuminate\Foundation\Console\EnvironmentCommand;
-use Illuminate\Foundation\Console\KeyGenerateCommand;
-use Illuminate\Foundation\Console\ListenerMakeCommand;
-use Illuminate\Foundation\Console\ProviderMakeCommand;
-use Illuminate\Foundation\Console\ClearCompiledCommand;
-use Illuminate\Foundation\Console\EventGenerateCommand;
-use Illuminate\Foundation\Console\VendorPublishCommand;
-use Illuminate\Database\Console\Seeds\SeederMakeCommand;
-use Illuminate\Foundation\Console\NotificationMakeCommand;
-use Illuminate\Notifications\Console\NotificationTableCommand;
-
-
 use Mage2\Framework\Module\Console\InstallCommand;
 use Mage2\Framework\Module\Console\UninstallCommand;
-use Mage2\Framework\Foundation\Console\PolicyMakeCommand;
-use Mage2\Framework\Foundation\Console\RequestMakeCommand;
-use Mage2\Framework\Foundation\Console\ModelMakeCommand;
-use Mage2\Framework\Routing\Console\ControllerMakeCommand;
 use Illuminate\Support\ServiceProvider;
 
 class ArtisanServiceProvider extends ServiceProvider
@@ -63,21 +21,6 @@ class ArtisanServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
-        //'ClearCompiled' => 'command.clear-compiled',
-        //'ClearResets' => 'command.auth.resets.clear',
-        //'ConfigCache' => 'command.config.cache',
-        //'ConfigClear' => 'command.config.clear',
-        //'Down' => 'command.down',
-        //'Environment' => 'command.environment',
-        //'KeyGenerate' => 'command.key.generate',
-        //'Optimize' => 'command.optimize',
-        //'RouteCache' => 'command.route.cache',
-        //'RouteClear' => 'command.route.clear',
-        //'RouteList' => 'command.route.list',
-        //'StorageLink' => 'command.storage.link',
-        //'Tinker' => 'command.tinker',
-        //'Up' => 'command.up',
-        //'ViewClear' => 'command.view.clear',
     ];
 
     /**
@@ -86,32 +29,8 @@ class ArtisanServiceProvider extends ServiceProvider
      * @var array
      */
     protected $devCommands = [
-        //'AppName' => 'command.app.name',
-        //'AuthMake' => 'command.auth.make',
-        //'CacheTable' => 'command.cache.table',
-        //'ConsoleMake' => 'command.console.make',
         'Mage2ModuleInstall' => 'command.mage2.module.install',
         'Mage2ModuleUninstall' => 'command.mage2.module.uninstall',
-        'ControllerMake' => 'command.controller.make',
-        //'EventGenerate' => 'command.event.generate',
-        //'EventMake' => 'command.event.make',
-        //'JobMake' => 'command.job.make',
-        //'ListenerMake' => 'command.listener.make',
-        //'MailMake' => 'command.mail.make',
-        //'MiddlewareMake' => 'command.middleware.make',
-        'ModelMake' => 'command.model.make',
-        //'NotificationMake' => 'command.notification.make',
-        //'NotificationTable' => 'command.notification.table',
-        'PolicyMake' => 'command.policy.make',
-        //'ProviderMake' => 'command.provider.make',
-        //'QueueFailedTable' => 'command.queue.failed-table',
-        //'QueueTable' => 'command.queue.table',
-        'RequestMake' => 'command.request.make',
-        //'SeederMake' => 'command.seeder.make',
-        //'SessionTable' => 'command.session.table',
-        //'Serve' => 'command.serve',
-        //'TestMake' => 'command.test.make',
-        //'VendorPublish' => 'command.vendor.publish',
     ];
 
     /**
