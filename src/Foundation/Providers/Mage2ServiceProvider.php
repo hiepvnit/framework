@@ -3,7 +3,7 @@
 namespace Mage2\Framework\Foundation\Providers;
 
 use Illuminate\Support\AggregateServiceProvider;
-use Mage2\Framework\AdminMenu\TabsServiceProvider;
+use Mage2\Framework\Tabs\TabsServiceProvider;
 use Mage2\Framework\Image\ImageServiceProvider;
 use Mage2\Framework\Module\ModuleServiceProvider;
 use Mage2\Framework\Search\SearchServiceProvider;

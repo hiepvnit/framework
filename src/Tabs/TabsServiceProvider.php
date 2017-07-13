@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Framework\AdminMenu;
+namespace Mage2\Framework\Tabs;
 
 use Illuminate\Support\ServiceProvider;
 
