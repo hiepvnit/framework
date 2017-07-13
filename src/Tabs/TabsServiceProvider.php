@@ -26,7 +26,7 @@ class TabsServiceProvider extends ServiceProvider {
      *
      * @return void
      */
-    protected function registerAdminMenu()
+    protected function registerTabs()
     {
         $this->app->singleton('tabs', function () {
             return new TabsMaker();
