@@ -12,13 +12,23 @@ class TabsMaker
         $this->adminTabs = Collection::make([]);
     }
 
-    public function registerTab()
-    {
-       dd('here');
+    public function add($key) {
+        $tab = new Tab();
+        $this->adminTabs->put($key, $tab);
+
+        return $tab;
     }
 
-    public function getMenuItems()
-    {
-        return $this->adminTabs->all();
+    public function all($type = "product") {
+
+
+        $tabs = $this->adminTabs->filter(function ($item, $key) use ($type) {
+            if($item->type == $type) {
+                return true;
+            }
+        });
+
+        return $tabs;
+
     }
 }
