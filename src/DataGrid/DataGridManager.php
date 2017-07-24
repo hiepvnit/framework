@@ -50,7 +50,8 @@ class DataGridManager
 
     public function dataTableData($model) {
 
-        $count = $model->all()->count();
+
+        $count = $model->get()->count();
 
         $columns = $this->request->get('columns');
         $orders = $this->request->get('order');
@@ -62,9 +63,7 @@ class DataGridManager
         $noOfRecord = $this->request->get('length');
         $noOfSkipRecord = $this->request->get('start');
 
-
         $records->skip($noOfSkipRecord)->take($noOfRecord);
-
 
         $data = [
                 "data" => $records->get(),
@@ -74,8 +73,6 @@ class DataGridManager
                 ];
 
         return JsonResponse::create($data);
-
-
     }
 
     /**
