@@ -502,7 +502,7 @@ class FormGenerator
     public function getAttributeText($attributes = [])
     {
         $attributeText = "";
-        unset($attributes['value']);
+        //unset($attributes['value']);
 
         foreach ($attributes as $attKey => $attVal) {
             if($attVal === true  ) {
