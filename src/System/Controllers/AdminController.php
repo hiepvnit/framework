@@ -32,5 +32,6 @@ class AdminController extends BaseController
             View::addLocation($path);
         }
 
+        $this->middleware('permission', ['except', ['admin.login', 'admin.logout']]);
     }
 }
