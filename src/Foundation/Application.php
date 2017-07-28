@@ -5,7 +5,6 @@ use Illuminate\Foundation\Application as LaravelApplication;
 
 class Application  extends LaravelApplication{
 
-    protected $namespace = "Mage2\Framework\\";
     /**
      * Get the path to the bootstrap directory.
      *
@@ -27,6 +26,8 @@ class Application  extends LaravelApplication{
     {
         return $this->basePath.DIRECTORY_SEPARATOR.'themes' . DIRECTORY_SEPARATOR . "mage2" . DIRECTORY_SEPARATOR . "default";
     }
+
+
 
     /**
      * Bind all of the application paths in the container.
