@@ -21,25 +21,25 @@ class DataGridManager
 
     /**
      * Database table model
-     * 
+     *
      * @var \Illuminate\Support\Collection
      */
     public $data;
     /**
      * Database table model
-     * 
+     *
      * @var \Illuminate\Database\Eloquent\Model
      */
     public $model;
     /**
      * Database table model
-     * 
+     *
      * @var \Illuminate\Support\Collection
      */
     public $columns = NULL;
     /**
      * Database table model
-     * 
+     *
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $paginate = 10;
@@ -50,7 +50,9 @@ class DataGridManager
 
     public function dataTableData($model) {
 
-
+        $this->model = $model;
+        return $this;
+        /**
         $count = $model->get()->count();
 
         $columns = $this->request->get('columns');
@@ -72,56 +74,84 @@ class DataGridManager
                 "recordsFiltered" => $count
                 ];
 
-        return JsonResponse::create($data);
+         */
+
+
+        //return JsonResponse::create($data);
     }
 
+
     /**
-     * 
-     * @param type $model
-     * @return \Mage2\Framework\DataGrid\DataGrid
-     * 
+     *
+     *
+     * @return static
+     *
      */
-    public static function make($model)
+    public function get()
     {
-        $instance = new static ;
-        $instance->model = $model;
-        $instance->data = $instance->model->paginate($instance->paginate);
-       
-        return $instance;
+
+        $count = $this->model->get()->count();
+
+        $columns = $this->request->get('columns');
+        $orders = $this->request->get('order');
+
+
+        $order = $orders[0];
+
+        $records = $this->model->orderBy($columns[$order['column']]['name'], $order['dir']);
+
+        $noOfRecord = $this->request->get('length');
+        $noOfSkipRecord = $this->request->get('start');
+
+        $records->skip($noOfSkipRecord)->take($noOfRecord);
+
+        $allRecords = $records->get();
+
+        if(isset($this->columns) && $this->columns->count() > 0) {
+
+            $jsonRecords = Collection::make([]);
+
+            foreach ($allRecords as $i => $singleRecord) {
+                foreach ($this->columns as $key => $columnData) {
+
+                    if (is_callable($columnData)) {
+                        $columnValue = $columnData($singleRecord);
+                    } else {
+                        $columnValue = $columnData;
+                    }
+
+                    $singleRecord->setAttribute($key, $columnValue);
+                }
+
+                $jsonRecords->put($i, $singleRecord);
+            }
+        }
+
+
+
+
+        $data = [
+            "data" => (isset($jsonRecords)) ? $jsonRecords : $allRecords,
+            "draw" =>  $this->request->get('draw'),
+            "recordsTotal"=> $count,
+            "recordsFiltered" => $count
+        ];
+
+        return JsonResponse::create($data);
+
     }
-    
-    public function addColumn($column) {
+
+    public function addColumn($columnKey , $data) {
+
         if(NULL === $this->columns) {
             $this->columns = Collection::make([]);
         }
-        $this->columns->push($column);
+        $this->columns->put($columnKey , $data);
         return $this;
-    }
-    
-    public function addLink($row = false) {
-        dd(is_callable($row));
-         //if($row && is_callable($row))
-            //return $return($label, $row);
-    }
-
-    public static  function textColumn($identifier, $label) {
-        return new TextColumn($identifier,$label);
-
     }
 
 
     public static  function linkColumn($identifier, $label, $callback) {
         return new LinkColumn($identifier,$label,$callback);
-    }
-
-
-    public function paginate($recordPerPage = 10) {
-        $this->data = $this->model->paginate($recordPerPage);
-        
-        return $this;
-    }
-    
-    public function render() {
-        return view('datagrid::grid')->with('dataGrid', $this);
     }
 }
