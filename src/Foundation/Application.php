@@ -15,20 +15,6 @@ class Application  extends LaravelApplication{
         return $this->basePath.DIRECTORY_SEPARATOR.'modules';
     }
 
-
-    /**
-     * Get the path to the resources directory.
-     *
-     * @param  string  $path
-     * @return string
-     */
-    public function resourcePath($path = '')
-    {
-        return $this->basePath.DIRECTORY_SEPARATOR.'themes' . DIRECTORY_SEPARATOR . "mage2" . DIRECTORY_SEPARATOR . "default";
-    }
-
-
-
     /**
      * Bind all of the application paths in the container.
      *
