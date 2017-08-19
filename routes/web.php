@@ -26,26 +26,36 @@
 
 /*
   |--------------------------------------------------------------------------
-  | Mage2 User Module Routes
+  | Mage2 Framework Module Routes
   |--------------------------------------------------------------------------
   |
-  | Here is where you can register all of the routes for an mage2 user modules.
-  | It's a breeze. Simply tell mage2 user module the URI it should respond to
+  | Here is where you can register all of the routes for an mage2 framework modules.
+  | It's a breeze. Simply tell mage2 framework module the URI it should respond to
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web', 'install'], 'namespace' => "Mage2\Framework\Auth\Controllers\Admin"], function () {
 
-    Route::get('/admin/login', ['as' => 'admin.login', 'uses' => 'LoginController@showLoginForm']);
-    Route::post('/admin/login', ['as' => 'admin.login.post', 'uses' => 'LoginController@login']);
 
-    Route::get('/admin/logout', ['as' => 'admin.logout', 'uses' => 'LoginController@logout']);
 
-    Route::get('/admin/password/reset/{token}', ['as' => 'admin.password.reset.token', 'uses' => 'ResetPasswordController@showResetForm']);
-    Route::post('/admin/password/email', ['as' => 'admin.password.email.post', 'uses' => 'ForgotPasswordController@sendResetLinkEmail']);
 
-    Route::post('/admin/password/reset', ['as' => 'admin.password.reset.token', 'uses' => 'ResetPasswordController@reset']);
 
-    Route::get('/admin/password/reset', ['as' => 'admin.password.reset', 'uses' => 'ForgotPasswordController@showLinkRequestForm']);
+
+Route::group(['middleware' => ['web', 'adminauth', 'permission', 'install'], 'namespace' => "Mage2\Framework", 'prefix' => 'admin'], function () {
+
+    //*****    DASHBOARD MODULE ROUTES    ****//
+
+
+    Route::get('product-tmp/create', ['as' => 'admin.dashboard', 'uses' => 'Product\Controllers\Admin\ProductController@index']);
+
+
+
+
+    //*****    ATTRIBUTE MODULE ROUTES    ****//
+    Route::get('attribute/get-datatable-data',
+                    ['as' => 'admin.attribute.data-grid-table.get-data',
+                    'uses' => 'Attribute\Controllers\Admin\AttributeController@getDataGrid'
+                    ]
+            );
+    Route::resource('attribute', 'Attribute\Controllers\Admin\AttributeController', ['as' => 'admin']);
 
 });
