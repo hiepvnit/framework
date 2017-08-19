@@ -3,7 +3,7 @@
 @section('content')
     <h1>
         <span class="main-title-wrap">Product Attribute List</span>
-        <a style="" href="{{ route('admin.attribute.create') }}" class="btn btn-primary float-right">Create
+        <a style="" href="{{ route('admin2.attribute.create') }}" class="btn btn-primary float-right">Create
             Attribute</a>
     </h1>
 
@@ -29,7 +29,7 @@
             processing: true,
             searching: false,
             serverSide: true,
-            ajax: '{!! route('admin.attribute.data-grid-table.get-data') !!}',
+            ajax: '{!! route('admin.attribute2.data-grid-table.get-data') !!}',
             columns: [
                 {data: 'id', name: 'id'},
                 {data: 'title', name: 'title'},

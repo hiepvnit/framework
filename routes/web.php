@@ -51,11 +51,11 @@ Route::group(['middleware' => ['web', 'adminauth', 'permission', 'install'], 'na
 
 
     //*****    ATTRIBUTE MODULE ROUTES    ****//
-    Route::get('attribute/get-datatable-data',
-                    ['as' => 'admin.attribute.data-grid-table.get-data',
+    Route::get('attribute-2/get-datatable-data',
+                    ['as' => 'admin.attribute2.data-grid-table.get-data',
                     'uses' => 'Attribute\Controllers\Admin\AttributeController@getDataGrid'
                     ]
             );
-    Route::resource('attribute', 'Attribute\Controllers\Admin\AttributeController', ['as' => 'admin']);
+    Route::resource('attribute-2', 'Attribute\Controllers\Admin\AttributeController', ['as' => 'admin2']);
 
 });
