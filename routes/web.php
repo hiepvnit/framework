@@ -36,26 +36,3 @@
  */
 
 
-
-
-
-
-Route::group(['middleware' => ['web', 'adminauth', 'permission', 'install'], 'namespace' => "Mage2\Framework", 'prefix' => 'admin'], function () {
-
-    //*****    DASHBOARD MODULE ROUTES    ****//
-
-
-    Route::get('product-tmp/create', ['as' => 'admin.dashboard', 'uses' => 'Product\Controllers\Admin\ProductController@index']);
-
-
-
-
-    //*****    ATTRIBUTE MODULE ROUTES    ****//
-    Route::get('attribute-2/get-datatable-data',
-                    ['as' => 'admin.attribute2.data-grid-table.get-data',
-                    'uses' => 'Attribute\Controllers\Admin\AttributeController@getDataGrid'
-                    ]
-            );
-    Route::resource('attribute-2', 'Attribute\Controllers\Admin\AttributeController', ['as' => 'admin2']);
-
-});
