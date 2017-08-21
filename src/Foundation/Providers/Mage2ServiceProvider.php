@@ -34,8 +34,8 @@ class Mage2ServiceProvider extends AggregateServiceProvider
         ShippingServiceProvider::class,
         ThemeServiceProvider::class,
         AdminMenuServiceProvider::class,
-        ModuleServiceProvider::class,
-        SearchServiceProvider::class,
+        //ModuleServiceProvider::class,
+        //SearchServiceProvider::class,
         ImageServiceProvider::class,
         TabsServiceProvider::class,
     ];
