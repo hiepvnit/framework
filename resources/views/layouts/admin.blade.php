@@ -12,10 +12,10 @@
 
 
 
-    <link href="{{ asset('vendor/mage2-admin/bootstrap4/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/mage2-admin/bootstrap4/css/open-iconic-bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/mage2-admin/bootstrap4/css/select2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/mage2-admin/bootstrap4/css/styles.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/mage2-admin/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/mage2-admin/css/open-iconic-bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/mage2-admin/css/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/mage2-admin/css/styles.css') }}" rel="stylesheet">
 
 
 
