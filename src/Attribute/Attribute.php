@@ -4,20 +4,13 @@ namespace Mage2\Framework\Attribute;
 
 use Illuminate\Support\Collection;
 
-class AttributeCollection {
+class Attribute {
 
     public $attributes = NULL;
 
 
     public function __construct() {
         $this->attributes = Collection::make([]);
-    }
-
-    public function add($key) {
-        $attribute = new Attribute();
-        $this->attributes->put($key, $attribute);
-
-        return $attribute;
     }
 
     public function all($type) {
