@@ -4,7 +4,6 @@ namespace Mage2\Framework\DataGrid;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Mage2\Framework\DataGrid\Columns\TextColumn;
 use Mage2\Framework\DataGrid\Columns\LinkColumn;
 
@@ -42,11 +41,68 @@ class DataGridManager
      *
      * @var \Illuminate\Database\Eloquent\Model
      */
-    protected $paginate = 10;
+    protected $pageItem = 10;
 
     public function __construct(Request $request) {
         $this->request = $request;
+        $this->columns = Collection::make([]);
     }
+
+    public function model($model) {
+
+        $this->model = $model;
+
+        return $this;
+    }
+
+    public function column($identifier, $options = []) {
+        $column = new TextColumn($identifier, $options);
+        $this->columns->put($identifier, $column );
+
+        return $this;
+    }
+
+    public function setPagination($item = 10) {
+        $this->pageItem = $item;
+    }
+
+    public function render() {
+
+        if(null !== $this->request->get('asc')) {
+            $this->model->orderBy($this->request->get('asc'), 'asc');
+        }
+        if(null !== $this->request->get('desc')) {
+            $this->model->orderBy($this->request->get('desc'), 'desc');
+        }
+
+
+        $this->data = $this->model->paginate($this->pageItem);
+
+        return view('mage2-framework::datagrid.grid')->with('dataGrid', $this);
+    }
+
+    public function asc($identifier = "") {
+        return (NULL !== $this->request->get('asc')  && $this->request->get('asc') == $identifier);
+    }
+
+    public function desc($identifier = "") {
+        return (NULL !== $this->request->get('desc') && $this->request->get('desc') == $identifier);
+    }
+
+    public function linkColumn($identifier, $options , $callback) {
+
+        $column = new LinkColumn($identifier,$options ,$callback);
+        $this->columns->put($identifier, $column );
+
+        return $this;
+    }
+
+
+
+
+
+
+
 
     public function dataTableData($model) {
 
@@ -148,10 +204,5 @@ class DataGridManager
         }
         $this->columns->put($columnKey , $data);
         return $this;
-    }
-
-
-    public static  function linkColumn($identifier, $label, $callback) {
-        return new LinkColumn($identifier,$label,$callback);
     }
 }

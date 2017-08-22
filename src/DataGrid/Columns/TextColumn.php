@@ -1,42 +1,22 @@
 <?php
 namespace Mage2\Framework\DataGrid\Columns;
 
-class TextColumn {
-    /**
-     * identifier of the Columns
-     *
-     * @string
-     */
-    public $identifier;
+use Illuminate\Support\Facades\Route;
 
-    /**
-     * Label of the Columns
-     * @string
-     */
-    public $label;
-
-    /**
-     * DataType of the Columns
-     * @string
-     */
-    public $dataType = "text";
+class TextColumn  extends AbstractColumn {
 
 
-    public function __construct($identifier, $label) {
-        $this->identifier = $identifier;
-        $this->label=  $label;
+    protected $type = 'text';
+
+
+    public function ascUrl() {
+        $currentRouteName = Route::getCurrentRoute()->getName();
+        return route($currentRouteName, ['asc' => $this->identifier()]);
     }
 
 
-    public function getLabel() {
-        return $this->label;
-    }
-
-    public function getIdentifier() {
-        return $this->identifier;
-    }
-
-    public function getDataType() {
-        return $this->dataType;
+    public function descUrl() {
+        $currentRouteName = Route::getCurrentRoute()->getName();
+        return route($currentRouteName, ['desc' => $this->identifier()]);
     }
 }

@@ -1,27 +1,16 @@
 <?php
 namespace Mage2\Framework\DataGrid\Columns;
 
-class LinkColumn {
-    /**
-     * identifier of the Columns
-     *
-     * @string
-     */
-    public $identifier;
+use Mage2\Framework\DataGrid\Columns\AbstractColumn;
 
-
-    /**
-     * Label of the Columns
-     * @string
-     */
-    public $label;
+class LinkColumn  extends AbstractColumn{
 
     /**
      * identifier of the Columns
      *
      * @string
      */
-    public $dataType = "link";
+    public $type = "link";
 
 
     /**
@@ -31,31 +20,19 @@ class LinkColumn {
      */
     public $callback;
 
-    public function __construct($identifier, $label, $callback) {
-        $this->identifier = $identifier;
-        $this->label=  $label;
+    public function __construct($identifier, $options = [], $callback = NULL) {
+
+        parent::__construct($identifier, $options);
         $this->callback = $callback;
     }
 
     public function executeCallback($row) {
         $return = $this->callback;
-        if($row && is_callable($return))
+
+        if($row && is_callable($return)) {
             return $return($row);
+        }
+
         return false;
     }
-
-
-    public function getLabel() {
-        return $this->label;
-    }
-
-    public function getIdentifier() {
-        return $this->identifier;
-    }
-
-    public function getDataType() {
-
-        return $this->dataType;
-    }
-
 }
