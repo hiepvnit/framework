@@ -38,9 +38,11 @@ class Select  extends Collection {
     }
 
     public function option($options = []) {
+
         if(count($options) <= 0) {
             return $this->get('options');
         }
+
 
         $this->put('options', $options);
 

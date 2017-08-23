@@ -30,7 +30,7 @@ class AttributeCollection {
 
     public function select($type) {
         $select = new Select();
-        $select->type('basic-product');
+        $select->type($type);
         $this->attributes->push($select);
 
         return $select;
