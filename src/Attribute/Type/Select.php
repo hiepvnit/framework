@@ -42,8 +42,6 @@ class Select  extends Collection {
         if(count($options) <= 0) {
             return $this->get('options');
         }
-
-
         $this->put('options', $options);
 
         return $this;

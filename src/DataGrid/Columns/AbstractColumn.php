@@ -8,7 +8,6 @@ abstract class AbstractColumn  implements  ColumnContract {
 
     protected $identifier = NULL;
 
-
     protected $label = NULL;
 
     protected $sortable = NULL;

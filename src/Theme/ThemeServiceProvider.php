@@ -21,9 +21,9 @@ class ThemeServiceProvider extends ServiceProvider {
     public function register()
     {
 
-        $this->registerTheme();
+        //$this->registerTheme();
 
-        $this->registerThemeNameSpace();
+        //$this->registerThemeNameSpace();
 
         $this->app->alias('theme', 'Mage2\Framework\Theme\ThemeManager');
     }
@@ -53,7 +53,6 @@ class ThemeServiceProvider extends ServiceProvider {
             $loader->register();
 
             App::register($namespace . 'ThemeInfo');
-
         }
     }
 
