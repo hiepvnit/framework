@@ -14,14 +14,13 @@ class LinkColumn  extends AbstractColumn{
 
 
     /**
-     * identifier of the Columns
+     * Callable function for the link
      *
      * @string
      */
     public $callback;
 
     public function __construct($identifier, $options = [], $callback = NULL) {
-
         parent::__construct($identifier, $options);
         $this->callback = $callback;
     }

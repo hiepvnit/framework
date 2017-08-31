@@ -9,7 +9,12 @@
     {{ csrf_field() }}
 
     @foreach($form->elements() as $element)
-        {!! $element->render() !!}
+            @if($element->isCallable())
+                {!! $element->executeCallback() !!}
+            @else
+                {!! $element->render() !!}
+            @endif
+
     @endforeach
 
 </form>

@@ -16,6 +16,14 @@ class Element implements ElementContracts
     public $attributes = null;
 
 
+
+    /**
+     *
+     * @var boolean $isCallable
+     */
+    public $isCallable = false;
+
+
     public function __construct($name = null)
     {
         $this->attributes = Collection::make([]);
@@ -52,6 +60,18 @@ class Element implements ElementContracts
     {
         $this->attributes->put($key, $value);
         return $this;
+    }
+
+
+    public function isCallable($isCallable = NULL) {
+
+        if (NULL === $isCallable) {
+            return $this->isCallable;
+        }
+        $this->isCallable = $isCallable;
+
+        return $this;
+
     }
 
     /**
