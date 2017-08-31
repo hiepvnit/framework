@@ -18,8 +18,6 @@ class Element implements ElementContracts
 
     public function __construct($name = null)
     {
-
-
         $this->attributes = Collection::make([]);
         $this->name($name);
     }
@@ -80,10 +78,10 @@ class Element implements ElementContracts
      * @param string|NULL $value
      * @return string $value
      */
-    public function attributeToString()
+    public function attributeToString($expect = [])
     {
         $attributeToString = "";
-        foreach($this->attributes as $key => $value) {
+        foreach($this->attributes->except($expect) as $key => $value) {
             $attributeToString .= $key . "=" . $value . " ";
         }
 
