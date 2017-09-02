@@ -54,7 +54,6 @@
     "barryvdh/laravel-dompdf": "0.8.*"
   },
   "autoload": {
-
     "classmap": [
       "database/migrations"
     ],
@@ -63,10 +62,24 @@
     }
   },
   "extra": {
-    "laravel" : {
+    "laravel": {
       "providers": [
-        "Mage2\\Framework\\Foundation\\Providers\\Mage2ServiceProvider"
-      ]
+        "Mage2\\Framework\\Foundation\\Providers\\Mage2ServiceProvider",
+        "Mage2\\Framework\\Mage2ServiceProvider",
+        "Mage2\Framework\Attribute\AttributeServiceProvider"
+      ],
+      "aliases": {
+        "Theme": "Mage2\\Framework\\Theme\\Facades\\Theme",
+        "DataGrid": "Mage2\\Framework\\DataGrid\\Facades\\DataGrid",
+        "AdminConfiguration": "Mage2\\Framework\\Configuration\\Facades\\AdminConfiguration",
+        "AdminMenu": "Mage2\\Framework\\AdminMenu\\Facades\\AdminMenu",
+        "Form": "Mage2\\Framework\\Form\\Facades\\FormFacade",
+        "Payment": "Mage2\\Framework\\Payment\Facades\Payment",
+        "Permission": "Mage2\\Framework\\Auth\Facades\Permission",
+        "Image": "Mage2\\Framework\\Image\Facades\Image",
+        "Tabs": "Mage2\\Framework\\Tabs\Facades\Tabs",
+        "Attributes": "Mage2\\Framework\\Attribute\Facades\Attributes"
+      }
     }
   }
 }
