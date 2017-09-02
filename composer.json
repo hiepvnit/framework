@@ -68,7 +68,7 @@
       "providers": [
         "Mage2\\Framework\\Foundation\\Providers\\Mage2ServiceProvider",
         "Mage2\\Framework\\Mage2ServiceProvider",
-        "Mage2\Framework\Attribute\AttributeServiceProvider"
+        "Mage2\\Framework\\Attribute\\AttributeServiceProvider"
       ],
       "aliases": {
         "Theme": "Mage2\\Framework\\Theme\\Facades\\Theme",
@@ -76,11 +76,11 @@
         "AdminConfiguration": "Mage2\\Framework\\Configuration\\Facades\\AdminConfiguration",
         "AdminMenu": "Mage2\\Framework\\AdminMenu\\Facades\\AdminMenu",
         "Form": "Mage2\\Framework\\Form\\Facades\\FormFacade",
-        "Payment": "Mage2\\Framework\\Payment\Facades\Payment",
-        "Permission": "Mage2\\Framework\\Auth\Facades\Permission",
-        "Image": "Mage2\\Framework\\Image\Facades\Image",
-        "Tabs": "Mage2\\Framework\\Tabs\Facades\Tabs",
-        "Attributes": "Mage2\\Framework\\Attribute\Facades\Attributes",
+        "Payment": "Mage2\\Framework\\Payment\\Facades\\Payment",
+        "Permission": "Mage2\\Framework\\Auth\\Facades\\Permission",
+        "Image": "Mage2\\Framework\\Image\\Facades\\Image",
+        "Tabs": "Mage2\\Framework\\Tabs\\Facades\\Tabs",
+        "Attributes": "Mage2\\Framework\\Attribute\\Facades\\Attributes",
         "Yaml": "Symfony\\Component\\Yaml\\Yaml"
       }
     }
