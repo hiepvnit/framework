@@ -51,7 +51,7 @@
     "mage2/pickup": "dev-master",
     "mage2/feature": "dev-master",
     "intervention/image": "^2.3",
-    "barryvdh/laravel-dompdf": "^0.7.0"
+    "barryvdh/laravel-dompdf": "^0.8.*"
   },
   "autoload": {
     "classmap": [
