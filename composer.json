@@ -1,6 +1,6 @@
 {
   "name": "mage2/framework",
-  "description": "Mage2 Laravel Ecommerce App Framework",
+  "description": "Mage2 Laravel E commerce - E commerce Framework",
   "keywords": [
     "framework",
     "laravel",
@@ -22,7 +22,6 @@
   "minimum-stability": "dev",
   "type": "project",
   "require": {
-    "php": ">=7.0.0",
     "mage2/address": "dev-master",
     "mage2/attribute": "dev-master",
     "mage2/cart": "dev-master",
@@ -47,16 +46,12 @@
     "mage2/wishlist": "dev-master",
     "ext-curl": "*",
     "ext-json": "*",
-
     "mage2/contact-us": "dev-master",
     "mage2/free-shipping": "dev-master",
     "mage2/pickup": "dev-master",
     "mage2/feature": "dev-master",
-
-
     "intervention/image": "^2.3",
     "barryvdh/laravel-dompdf": "^0.7.0"
-
   },
   "autoload": {
     "classmap": [
