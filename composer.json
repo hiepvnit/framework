@@ -80,7 +80,8 @@
         "Permission": "Mage2\\Framework\\Auth\Facades\Permission",
         "Image": "Mage2\\Framework\\Image\Facades\Image",
         "Tabs": "Mage2\\Framework\\Tabs\Facades\Tabs",
-        "Attributes": "Mage2\\Framework\\Attribute\Facades\Attributes"
+        "Attributes": "Mage2\\Framework\\Attribute\Facades\Attributes",
+        "Yaml": "Symfony\\Component\\Yaml\\Yaml"
       }
     }
   }
