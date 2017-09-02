@@ -61,5 +61,12 @@
     "psr-4": {
       "Mage2\\Framework\\": "src/"
     }
+  },
+  "extra": {
+    "laravel" : {
+      "providers": [
+        "Mage2\\Framework\\Foundation\\Providers\\Mage2ServiceProvider"
+      ]
+    }
   }
 }
