@@ -37,6 +37,7 @@
 @include("mage2-framework::layouts.admin-nav")
 <div class="container">
 
+    <div class="row">
     <div class="col-12">
         @if(session()->has('notificationText'))
             <div class="alert alert-success alert-dismissible" role="alert">
@@ -48,7 +49,7 @@
             </div>
         @endif
     </div>
-
+    </div>
 
     @yield('content')
 </div>

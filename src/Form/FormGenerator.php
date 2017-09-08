@@ -427,9 +427,9 @@ class FormGenerator
      * @param  string $buttonText
      * @return $stub
      */
-    public function submit($buttonText = "Save", $attributes = ['class' => 'btn btn-primary'])
+    public function submit($buttonText = "Save", $attributes = [])
     {
-        $attributes = Collection::make($attributes);
+        $attributes = Collection::make(array_merge(['class' => 'btn btn-primary'] , $attributes));
         $stub = $this->files->get($this->getStub('submit'));
 
         $this->replaceStubText($stub, "DUMMYBUTTONTEXT", $buttonText);

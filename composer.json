@@ -56,6 +56,9 @@
     "mage2/module-installer": "dev-master"
   },
   "autoload": {
+    "files": [
+      "src/Foundation/helpers.php"
+    ],
     "classmap": [
       "database/migrations"
     ],
