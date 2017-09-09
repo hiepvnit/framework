@@ -14,6 +14,10 @@ class DataGridServiceProvider extends ServiceProvider {
      */
     protected $defer = true;
 
+    public function boot() {
+        $this->registerViewPath();
+    }
+
     /**
      * Register the service provider.
      *
@@ -22,7 +26,7 @@ class DataGridServiceProvider extends ServiceProvider {
     public function register() {
 
         $this->registerDataGrid();
-        $this->registerViewPath();
+
         $this->app->alias('datagrid', 'Mage2\Framework\DataGrid\DataGridManager');
     }
 
