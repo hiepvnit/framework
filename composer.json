@@ -66,6 +66,11 @@
       "Mage2\\Framework\\": "src/"
     }
   },
+  "autoload-dev": {
+    "files": [
+      "src/Foundation/helpers.php"
+    ]
+  },
   "extra": {
     "laravel": {
       "providers": [
