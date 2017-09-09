@@ -19,7 +19,7 @@ class Mage2ServiceProvider extends ServiceProvider
         $this->registerMigrationPath();
         $this->registerTranslationPath();
         $this->registerViewPath();
-        $this->extendView();
+
 
     }
 
@@ -29,7 +29,7 @@ class Mage2ServiceProvider extends ServiceProvider
      * @return void
      */
     public function register() {
-
+        $this->extendView();
     }
 
 

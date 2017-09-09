@@ -18,7 +18,7 @@ class View  extends  Factory{
     {
         //$materialThemePath = base_path('themes/mage2/material/views');
         //$this->finder->prependLocation($materialThemePath);
-        
+
         $path = $this->finder->find(
             $view = $this->normalizeName($view)
         );
