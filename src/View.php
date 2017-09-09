@@ -16,10 +16,9 @@ class View  extends  Factory{
      */
     public function make($view, $data = [], $mergeData = [])
     {
-        $materialThemePath = base_path('themes/mage2/material/views');
-
-
-        $this->finder->prependLocation($materialThemePath);
+        //$materialThemePath = base_path('themes/mage2/material/views');
+        //$this->finder->prependLocation($materialThemePath);
+        
         $path = $this->finder->find(
             $view = $this->normalizeName($view)
         );
