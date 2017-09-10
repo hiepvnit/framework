@@ -28,6 +28,7 @@
     "mage2/category": "dev-master",
     "mage2/checkout": "dev-master",
     "mage2/dashboard": "dev-master",
+    "mage2/default": "dev-master",
     "mage2/gift-coupon": "dev-master",
     "mage2/install": "dev-master",
     "mage2/order": "dev-master",

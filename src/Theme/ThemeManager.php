@@ -46,9 +46,11 @@ class ThemeManager
 
                 $filePath = $iterator->getPathname();
                 $themeRegisterContent = File::get($filePath);
+                $assetFolderName = isset($data['asset_folder_name']) ? $data['asset_folder_name'] : "assets";
 
                 $data = Yaml::parse($themeRegisterContent);
                 $data['view_path'] = $iterator->getPath() . DIRECTORY_SEPARATOR ."views";
+                $data['asset_path'] = $iterator->getPath() . DIRECTORY_SEPARATOR .$assetFolderName;
                 $this->themeList->put($data['name'],$data);
             }
             $iterator->next();
