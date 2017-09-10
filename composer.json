@@ -30,7 +30,7 @@
     "mage2/dashboard": "dev-master",
     "mage2/default": "dev-master",
     "mage2/gift-coupon": "dev-master",
-    "mage2/install": "dev-master",
+    "mage2/install": "dev-master"
     "mage2/order": "dev-master",
     "mage2/order-return": "dev-master",
     "mage2/page": "dev-master",
@@ -53,8 +53,7 @@
     "mage2/feature": "dev-master",
     "intervention/image": "2.4.*",
     "barryvdh/laravel-dompdf": "0.8.*",
-    "symfony/yaml": "^3.3",
-    "mage2/module-installer": "dev-master"
+    "symfony/yaml": "^3.3"
   },
   "autoload": {
     "files": [
