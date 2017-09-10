@@ -11,10 +11,12 @@ use Illuminate\Support\Facades\File;
 class ThemeManager
 {
     public $themeList;
+    public $service;
     public $themeLoaded = false;
 
-    public function __construct()
+    public function __construct(ThemeService $service)
     {
+        $this->service = $service;
         $this->themeList = Collection::make([]);
     }
 
@@ -75,6 +77,10 @@ class ThemeManager
         }
 
         return $this->themeList->pull($identifier);
+    }
+
+    public function getService() {
+        return $this->service;
     }
 
     public function getByPath($path)
