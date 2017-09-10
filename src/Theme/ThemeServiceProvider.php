@@ -20,11 +20,7 @@ class ThemeServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-
-        //$this->registerTheme();
-
-        //$this->registerThemeNameSpace();
-
+        $this->registerTheme();
         $this->app->alias('theme', 'Mage2\Framework\Theme\ThemeManager');
     }
     /**

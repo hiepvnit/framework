@@ -5,6 +5,8 @@ namespace Mage2\Framework\Theme;
 use Illuminate\Support\Collection;
 use RecursiveIteratorIterator;
 use Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator;
+use Symfony\Component\Yaml\Yaml;
+use Illuminate\Support\Facades\File;
 
 class ThemeManager
 {
@@ -38,10 +40,16 @@ class ThemeManager
         $iterator->rewind();
 
         while ($iterator->valid()) {
-            if (($iterator->getDepth() > 1) && $iterator->isFile() && ($iterator->getFilename() == 'ThemeInfo.php')) {
+            if (($iterator->getDepth() > 1) &&
+                $iterator->isFile() &&
+                ($iterator->getFilename() == 'register.yaml')) {
+
                 $filePath = $iterator->getPathname();
-                $themeInfo = include_once $filePath;
-                $this->themeList->put($themeInfo['name'], $themeInfo);
+                $themeRegisterContent = File::get($filePath);
+
+                $data = Yaml::parse($themeRegisterContent);
+                $data['view_path'] = $iterator->getPath() . DIRECTORY_SEPARATOR ."views";
+                $this->themeList->put($data['name'],$data);
             }
             $iterator->next();
         }
@@ -60,6 +68,10 @@ class ThemeManager
 
     public function get($identifier)
     {
+        if ($this->themeLoaded === false) {
+            $this->loadThemes();
+        }
+
         return $this->themeList->pull($identifier);
     }
 

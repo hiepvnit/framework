@@ -28,8 +28,8 @@ class AdminController extends BaseController
 
         if (Schema::hasTable('configurations')) {
             $path = realpath(Configuration::getConfiguration('active_theme_path'));
-            //dd($path );
-            View::addLocation($path);
+            $fileViewFinder = View::getFinder();
+            $fileViewFinder->prependLocation($path);
         }
 
         $this->middleware('permission', ['except', ['admin.login', 'admin.logout']]);

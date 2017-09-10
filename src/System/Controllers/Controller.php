@@ -22,7 +22,9 @@ class Controller extends BaseController
     {
         if (Schema::hasTable('configurations')) {
             $path = realpath(Configuration::getConfiguration('active_theme_path'));
-            View::addLocation($path);
+
+            $fileViewFinder = View::getFinder();
+            $fileViewFinder->prependLocation($path);
         }
 
     }
