@@ -30,7 +30,7 @@
     "mage2/dashboard": "dev-master",
     "mage2/default": "dev-master",
     "mage2/gift-coupon": "dev-master",
-    "mage2/install": "dev-master"
+    "mage2/install": "dev-master",
     "mage2/order": "dev-master",
     "mage2/order-return": "dev-master",
     "mage2/page": "dev-master",
