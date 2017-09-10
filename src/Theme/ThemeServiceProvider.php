@@ -4,6 +4,8 @@ namespace Mage2\Framework\Theme;
 use Composer\Autoload\ClassLoader;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\App;
+use Mage2\Framework\Theme\Facades\Theme;
+use Mage2\Framework\Theme\ThemeService;
 
 class ThemeServiceProvider extends ServiceProvider {
 
@@ -31,7 +33,7 @@ class ThemeServiceProvider extends ServiceProvider {
     protected function registerTheme()
     {
         $this->app->singleton('theme', function ($app) {
-            return new ThemeManager();
+            return new ThemeManager($app['files']);
         });
     }
 
