@@ -1,5 +1,6 @@
 <?php
-namespace Mage2\Framework\System\Publish;
+
+namespace Mage2\Framework\Theme;
 
 use League\Flysystem\MountManager;
 use Illuminate\Filesystem\Filesystem;
@@ -7,7 +8,7 @@ use League\Flysystem\Filesystem as Flysystem;
 use League\Flysystem\Adapter\Local as LocalAdapter;
 
 
-class PublishService {
+class ThemeService {
 
 
     protected $files;
@@ -19,7 +20,6 @@ class PublishService {
      */
     public function __construct(Filesystem $files)
     {
-
         $this->files = $files;
     }
 
